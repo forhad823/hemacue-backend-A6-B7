@@ -1,3 +1,19 @@
+node_modules
+.env
+.env.*
+!.env.example
+dist
+
+/src/generated
+
+# Lock Files
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+pnpm-workspace.yaml
+.vscode
+.vercel
+
 hemacue-backend-project-requirement.md
 implementation-plan.md
 z_note.txt
