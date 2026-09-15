@@ -28,7 +28,8 @@
       },
       "style": {
         "noNonNullAssertion": "info",
-        "useNodejsImportProtocol": "info"
+        "useNodejsImportProtocol": "info",
+        "useImportType": "info"
       }
     },
     "includes": ["**", "!src/generated", "!src/app/templates"]

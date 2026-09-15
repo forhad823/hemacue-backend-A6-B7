@@ -8,10 +8,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import config from "./app/config";
 import httpStatus from "http-status";
-import { globalErrorHandler } from "./app/middlewares/globalErrorHandler";
-import { notFound } from "./app/middlewares/notFound";
-
-
+import { notFound } from "./app/utils/notFound";
+import { globalErrorHandler } from "./app/errors/globalErrorHandler";
 
 const app: Application = express();
 
@@ -38,7 +36,10 @@ app.get("/", async (req: Request, res: Response) => {
 	});
 });
 
-app.use(globalErrorHandler);
+// Global Not Found handler for unmapped routes
 app.use(notFound);
+
+// Global Error Handler middleware
+app.use(globalErrorHandler);
 
 export default app;
