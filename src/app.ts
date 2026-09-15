@@ -10,6 +10,8 @@ import config from "./app/config";
 import httpStatus from "http-status";
 import { notFound } from "./app/utils/notFound";
 import { globalErrorHandler } from "./app/errors/globalErrorHandler";
+import globalRateLimiter from "./app/middlewares/rateLimiter";
+
 
 const app: Application = express();
 
@@ -19,6 +21,9 @@ app.use(
 		credentials: true,
 	}),
 );
+
+// Enable rate limiting
+app.use(globalRateLimiter);
 
 // Enable URL-encoded form data parsing
 app.use(express.urlencoded({ extended: true }));

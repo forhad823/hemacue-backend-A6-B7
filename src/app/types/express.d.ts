@@ -1,19 +1,18 @@
-// import { Role } from "../../generated/prisma/enums";
+import type { BloodGroup, UserRole } from '@prisma/client';
 
-import { BloodGroup, UserRole } from "../../../generated/prisma/enums";
+export type TAuthUser = {
+  email: string;
+  name?: string;
+  userId: string;
+  role: UserRole | string;
+  bloodGroup?: BloodGroup | string;
+  isEmailVerified?: boolean;
+};
 
-// global type augmentation (or declaration merging)
 declare global {
-	namespace Express {
-		interface Request {
-			user?: {
-				email: string;
-				name: string;
-				userId: string;
-				role: UserRole;
-				bloodGroup: BloodGroup;
-				isEmailVerified: boolean;
-			};
-		}
-	}
+  namespace Express {
+    interface Request {
+      user?: TAuthUser;
+    }
+  }
 }

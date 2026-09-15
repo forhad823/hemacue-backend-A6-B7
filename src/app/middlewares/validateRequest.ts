@@ -1,28 +1,29 @@
 import type { NextFunction, Request, Response } from "express";
-import httpStatus from "http-status";
-import type z from "zod";
+import { z } from "zod";
 import { catchAsync } from "../utils/catchAsync";
-import { AppError } from "../errors/AppError";
 
-export const validateRequest = (zodSchema: z.ZodObject) => {
-  return catchAsync((req: Request, res: Response, next: NextFunction) => {
-    // const payload = req.body ? req.body : {}
-    const payload = req.body ?? {};
+export const validateRequest = (schema: z.ZodType) =>
+  catchAsync(async (req: Request, _res: Response, next: NextFunction) => {
+    const parsed = await schema.parseAsync({
+      body: req.body,
+      query: req.query,
+      params: req.params,
+      cookies: req.cookies,
+    });
 
-    const result = zodSchema.safeParse(payload);
-
-    if (!result.success) {
-      console.log(result.error);
-      console.log(result.error.issues);
-
-      throw new AppError(
-        httpStatus.BAD_REQUEST,
-        result.error.issues[0].message,
-      );
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      throw new Error("Validation schema must return an object.");
     }
 
-    req.body = result.data;
+    const data = parsed as Record<string, unknown>;
+
+    for (const key of ["body", "query", "params", "cookies"] as const) {
+      if (key in data) {
+        req[key] = data[key];
+      }
+    }
 
     next();
   });
-};
+
+export default validateRequest;
