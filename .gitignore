@@ -4,7 +4,7 @@ node_modules
 !.env.example
 dist
 
-/src/generated
+/generated/prisma
 
 # Lock Files
 pnpm-lock.yaml
@@ -17,3 +17,4 @@ pnpm-workspace.yaml
 hemacue-backend-project-requirement.md
 implementation-plan.md
 z_note.txt
+ERD-hemacue.md

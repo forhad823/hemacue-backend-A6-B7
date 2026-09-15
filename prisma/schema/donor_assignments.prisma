@@ -1,0 +1,14 @@
+model DonorAssignment {
+    id          String           @id @default(uuid())
+    requestId   String
+    donorId     String
+    status      AssignmentStatus @default(NOTIFIED)
+    assignedAt  DateTime         @default(now())
+    respondedAt DateTime?
+
+    request BloodRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+    donor   User         @relation(fields: [donorId], references: [id], onDelete: Cascade)
+
+    @@unique([requestId, donorId])
+    @@map("donor_assignments")
+}

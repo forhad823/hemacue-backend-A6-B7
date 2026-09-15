@@ -1,0 +1,29 @@
+model User {
+    id              String     @id @default(uuid())
+    name            String
+    email           String     @unique
+    password        String
+    role            UserRole   @default(DONOR)
+    bloodGroup      BloodGroup
+    phone           String
+    district        String
+    city            String
+    address         String?
+    latitude        Float?
+    longitude       Float?
+    isAvailable     Boolean    @default(true)
+    lastDonatedAt   DateTime?
+    avatarUrl       String?
+    isEmailVerified Boolean    @default(false)
+    isDeleted       Boolean    @default(false)
+    createdAt       DateTime   @default(now())
+    updatedAt       DateTime   @updatedAt
+
+    bloodRequests    BloodRequest[]
+    donorAssignments DonorAssignment[]
+    payments         Payment[]
+    auditLogs        AuditLog[]
+
+    @@index([bloodGroup, district, isAvailable, isDeleted])
+    @@map("users")
+}

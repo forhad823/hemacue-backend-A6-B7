@@ -1,0 +1,51 @@
+enum UserRole {
+    DONOR
+    PATIENT
+    ADMIN
+}
+
+enum BloodGroup {
+    A_POSITIVE
+    A_NEGATIVE
+    B_POSITIVE
+    B_NEGATIVE
+    AB_POSITIVE
+    AB_NEGATIVE
+    O_POSITIVE
+    O_NEGATIVE
+}
+
+enum UrgencyLevel {
+    NORMAL
+    HIGH
+    EMERGENCY
+}
+
+enum RequestStatus {
+    PENDING
+    VERIFIED
+    DONOR_ASSIGNED
+    IN_PROGRESS
+    COMPLETED
+    CANCELLED
+}
+
+enum AssignmentStatus {
+    NOTIFIED
+    ACCEPTED
+    DECLINED
+    COMPLETED
+    CANCELLED
+}
+
+enum PaymentStatus {
+    INITIALIZED
+    COMPLETED
+    FAILED
+    CANCELLED
+}
+
+enum PaymentType {
+    PREMIUM_NOTIFICATION
+    EMERGENCY_LOGISTICS
+}
