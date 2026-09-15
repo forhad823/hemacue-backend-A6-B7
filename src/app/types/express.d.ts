@@ -9,7 +9,7 @@ declare global {
       user?: {
         email: string;
         name: string;
-        id: string;
+        userId: string;
         role: UserRole;
         bloodGroup: BloodGroup;
         isEmailVerified: Boolean;

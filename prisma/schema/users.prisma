@@ -12,6 +12,7 @@ model User {
     latitude        Float?
     longitude       Float?
     isAvailable     Boolean    @default(true)
+    status          UserStatus @default(ACTIVE)
     lastDonatedAt   DateTime?
     avatarUrl       String?
     isEmailVerified Boolean    @default(false)
