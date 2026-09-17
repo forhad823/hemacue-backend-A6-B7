@@ -76,6 +76,7 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+
 const refreshToken = catchAsync(async (req: Request, res: Response) => {
   const token = req.cookies?.refreshToken || req.body?.refreshToken;
 
@@ -139,6 +140,7 @@ const googleLogin = catchAsync(async (req: Request, res: Response) => {
     },
   });
 });
+
 
 const forgotPassword = catchAsync(async (req: Request, res: Response) => {
   await AuthService.forgotPassword(req.body);
