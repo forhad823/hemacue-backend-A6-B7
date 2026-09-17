@@ -8,7 +8,7 @@ import "../types/express.d.ts";
 import { UserRole } from "../../../generated/prisma/enums";
 import { prisma } from "../lib/prisma";
 
-export const auth = (...requiredRoles: (UserRole | string)[]) => {
+export const auth = (...requiredRoles: (UserRole | string)[]) => { 
 	return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 		const token = req.cookies?.accessToken
 			? req.cookies.accessToken
