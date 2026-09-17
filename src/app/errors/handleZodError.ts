@@ -16,7 +16,7 @@ export const handleZodError = (err: ZodError): TGenericErrorResponse => {
     return {
       path: String(issue.path[issue.path.length - 1] ?? ""),
       message: issue.message,
-    };
+    }; 
   });
 
   const statusCode = 400;

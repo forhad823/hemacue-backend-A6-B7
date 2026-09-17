@@ -263,7 +263,7 @@ const loginUser = async (payload: ILoginUserPayload) => {
     config.jwt_access_secret,
     config.jwt_access_expires_in as SignOptions,
   );
-
+    
   const refreshToken = jwtUtils.createToken(
     jwtPayload,
     config.jwt_refresh_secret,
@@ -456,7 +456,7 @@ const forgotPassword = async (payload: IForgotPasswordPayload) => {
 
   if (isUserExist.status === UserStatus.BLOCKED) {
     throw new AppError(httpStatus.FORBIDDEN, "User account is blocked");
-  }
+  } 
 
   if (!isUserExist.isEmailVerified) {
     throw new AppError(httpStatus.FORBIDDEN, "User email is not verified yet");
