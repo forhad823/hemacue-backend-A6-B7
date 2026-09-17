@@ -1,7 +1,7 @@
 import express, {
-  type Application,
-  type Request,
-  type Response,
+	type Application,
+	type Request,
+	type Response,
 } from "express";
 
 import cookieParser from "cookie-parser";
@@ -17,10 +17,10 @@ import router from "./app/routes";
 const app: Application = express();
 
 app.use(
-  cors({
-    origin: config.frontend_url,
-    credentials: true,
-  }),
+	cors({
+		origin: config.frontend_url,
+		credentials: true,
+	}),
 );
 
 // Enable rate limiting
@@ -35,11 +35,11 @@ app.use(cookieParser());
 
 // Basic route
 app.get("/", async (req: Request, res: Response) => {
-  res.status(httpStatus.OK).json({
-    success: true,
-    message:
-      "Welcome to Hemacue Backend, The blood donation and emergency service platform.",
-  });
+	res.status(httpStatus.OK).json({
+		success: true,
+		message:
+			"Welcome to Hemacue Backend, The blood donation and emergency service platform.",
+	});
 });
 
 // Application routes

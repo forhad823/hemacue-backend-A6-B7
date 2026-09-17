@@ -1,26 +1,26 @@
-import type { Response } from 'express';
+import type { Response } from "express";
 
 export type TMeta = {
-  page: number;
-  limit: number;
-  total: number;
-  totalPage?: number;
-  totalPages?: number;
+	page: number;
+	limit: number;
+	total: number;
+	totalPage?: number;
+	totalPages?: number;
 };
 
 export type TApiResponse<T> = {
-  statusCode: number;
-  success: boolean;
-  message?: string;
-  meta?: TMeta;
-  data?: T | null;
+	statusCode: number;
+	success: boolean;
+	message?: string;
+	meta?: TMeta;
+	data?: T | null;
 };
 
 export const sendResponse = <T>(res: Response, data: TApiResponse<T>): void => {
-  res.status(data.statusCode).json({
-    success: data.success,
-    message: data.message || 'Operation successful',
-    meta: data.meta || undefined,
-    data: data.data !== undefined ? data.data : null,
-  });
+	res.status(data.statusCode).json({
+		success: data.success,
+		message: data.message || "Operation successful",
+		meta: data.meta || undefined,
+		data: data.data !== undefined ? data.data : null,
+	});
 };

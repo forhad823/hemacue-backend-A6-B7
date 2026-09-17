@@ -1,4 +1,4 @@
-import multer from 'multer';
+import multer from "multer";
 // import { AppError } from '../errors/AppError';
 
 const storage = multer.memoryStorage();
@@ -22,11 +22,11 @@ const storage = multer.memoryStorage();
 // };
 
 export const upload = multer({
-  storage,
-  // fileFilter,
-  // limits: {
-  //   fileSize: 5 * 1024 * 1024, // 5MB limit
-  // },
+	storage,
+	// fileFilter,
+	// limits: {
+	//   fileSize: 5 * 1024 * 1024, // 5MB limit
+	// },
 });
 
 export default upload;
