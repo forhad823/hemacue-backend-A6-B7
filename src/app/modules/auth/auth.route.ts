@@ -38,7 +38,7 @@ router.post(
 	authPaymentRateLimiter,
 	validateRequest(UserValidation.GoogleLoginZodSchema),
 	AuthController.googleLogin,
-);
+); 
 
 router.post(
 	"/forgot-password",
