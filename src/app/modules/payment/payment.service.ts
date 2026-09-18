@@ -413,7 +413,7 @@ const getPaymentDetails = async (
           district: true,
           city: true,
           status: true,
-        },
+        }, 
       },
     },
   });
