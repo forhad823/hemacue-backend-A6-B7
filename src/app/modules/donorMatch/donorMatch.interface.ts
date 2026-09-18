@@ -4,6 +4,11 @@ import type {
 	RequestStatus,
 } from "../../../../generated/prisma/enums";
 
+export interface ICreateDonorAssignmentPayload {
+	donorId: string;
+	requestId: string;
+}
+
 export interface IRespondRequestPayload {
 	response: AssignmentStatus;
 }
