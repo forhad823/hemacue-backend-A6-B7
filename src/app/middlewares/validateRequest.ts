@@ -1,30 +1,58 @@
 import type { NextFunction, Request, Response } from "express";
-import { z } from "zod";
-import { catchAsync } from "../utils/catchAsync";
-import { AppError } from "../errors/AppError";
 import httpStatus from "http-status";
+import type { z } from "zod";
+import { AppError } from "../errors/AppError";
+import { catchAsync } from "../utils/catchAsync";
 
-export const validateRequest = (zodSchema: z.ZodObject) => {
-	return catchAsync((req: Request, res: Response, next: NextFunction) => {
-		// const payload = req.body ? req.body : {}
-		const payload = req.body ?? {};
+type TValidationTarget = "body" | "query" | "params" | "cookies";
 
-		const result = zodSchema.safeParse(payload);
+type TSchemaInput = z.ZodType | Partial<Record<TValidationTarget, z.ZodType>>;
 
-		if (!result.success) {
-			console.log(result.error);
-			console.log(result.error.issues);
+const isTargetConfig = (
+  input: TSchemaInput,
+): input is Partial<Record<TValidationTarget, z.ZodType>> => {
+  return (
+    typeof input === "object" &&
+    input !== null &&
+    ("body" in input ||
+      "query" in input ||
+      "params" in input ||
+      "cookies" in input)
+  );
+};
 
-			throw new AppError(
-				httpStatus.BAD_REQUEST,
-				result.error.issues[0].message,
-			);
-		}
+export const validateRequest = (input: TSchemaInput) => {
+  return catchAsync((req: Request, res: Response, next: NextFunction) => {
+    const schemas: Partial<Record<TValidationTarget, z.ZodType>> =
+      isTargetConfig(input) ? input : { body: input };
 
-		req.body = result.data;
+    for (const target of Object.keys(schemas) as TValidationTarget[]) {
+      const schema = schemas[target];
+      if (!schema) {
+        continue;
+      }
 
-		next();
-	});
+      const result = schema.safeParse(req[target]);
+
+      if (!result.success) {
+        console.log(result.error.issues);
+        throw new AppError(
+          httpStatus.BAD_REQUEST,
+          result.error.issues[0].message,
+        );
+      }
+
+      // Express 5 exposes `req.query` as a getter-only property, so it can't be
+      // reassigned. Store parsed query params on `req.validatedQuery` instead.
+      if (target === "query") {
+        req.validatedQuery = result.data as Record<string, unknown>;
+      } else {
+        (req as unknown as Record<string, unknown>)[target] = result.data;
+      }
+    }
+
+    next();
+  });
 };
 export default validateRequest;
 
