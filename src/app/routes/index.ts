@@ -1,11 +1,13 @@
 import { Router } from "express";
 
+import { AdminRoutes } from "../modules/admin/admin.route";
 import { AuthRoutes } from "../modules/auth/auth.route";
 import { BloodRequestRoutes } from "../modules/bloodRequest/bloodRequest.route";
 import {
 	DonorMatchRequestRoutes,
 	DonorMatchRoutes,
 } from "../modules/donorMatch/donorMatch.route";
+import { PaymentRoutes } from "../modules/payment/payment.route";
 import { UserRoutes } from "../modules/user/user.route";
 
 const router = Router();
@@ -31,6 +33,14 @@ const moduleRoutes = [
 	{
 		path: "/donor-matches",
 		route: DonorMatchRoutes,
+	},
+	{
+		path: "/payments",
+		route: PaymentRoutes,
+	},
+	{
+		path: "/admin",
+		route: AdminRoutes,
 	},
 ];
 

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hemacue Payment Invoice</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      h2 {
+        color: #c0392b;
+        margin-top: 0;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .row span:first-child {
+        font-weight: bold;
+        color: #666;
+      }
+      .footer {
+        margin-top: 30px;
+        font-size: 12px;
+        color: #888;
+      }
+      .amount {
+        font-size: 18px;
+        font-weight: bold;
+        color: #c0392b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Hemacue Payment Invoice</h2>
+      <p>Hello <%= payment.payerReference %>,</p>
+      <p>
+        Thank you for using <strong>Hemacue</strong>. Please find below the
+        invoice for your recent payment. Your invoice PDF is attached to this
+        email.
+      </p>
+
+      <h3>Invoice Details</h3>
+      <div class="row"><span>Invoice / Reference Number</span><span><%= payment.id %></span></div>
+      <div class="row"><span>Issue Date &amp; Time</span><span><%= issuedAt %></span></div>
+      <div class="row"><span>bKash Payment ID</span><span><%= payment.paymentID %></span></div>
+      <div class="row"><span>bKash Transaction ID</span><span><%= payment.trxID || "N/A" %></span></div>
+      <div class="row"><span>Payment Type</span><span><%= paymentTypeLabel %></span></div>
+      <div class="row"><span>Amount</span><span class="amount"><%= payment.amount.toFixed(2) %> <%= payment.currency %></span></div>
+      <div class="row"><span>Payer Reference</span><span><%= payment.payerReference || "N/A" %></span></div>
+      <div class="row"><span>Status</span><span><%= payment.status %></span></div>
+
+      <h3>Patient / Request Summary</h3>
+      <div class="row"><span>Patient Name</span><span><%= patientName %></span></div>
+      <div class="row"><span>Req-Id</span><span><%= payment.requestId %></span></div>
+
+      <div class="footer">
+        &copy; Hemacue - Blood Donation &amp; Emergency Service Platform.
+        <br />
+        This is a system-generated invoice. Please contact support if you need
+        any assistance.
+      </div>
+    </div>
+  </body>
+</html>

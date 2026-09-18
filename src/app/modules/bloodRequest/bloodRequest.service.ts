@@ -1,6 +1,5 @@
 import httpStatus from "http-status";
 import {
-  BloodGroup,
   RequestStatus,
   UrgencyLevel,
   UserRole,
@@ -12,8 +11,6 @@ import type {
   ICreateBloodRequestPayload,
   IUpdateBloodRequestPayload,
 } from "./bloodRequest.interface";
-import { DonorMatchService } from "../donorMatch/donorMatch.service";
-import { ICompatibleDonorQueryParams } from "../donorMatch/donorMatch.interface";
 
 const BLOOD_REQUEST_SELECT = {
   id: true,
