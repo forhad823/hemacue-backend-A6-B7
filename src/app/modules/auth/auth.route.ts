@@ -52,6 +52,6 @@ router.post(
 	authPaymentRateLimiter,
 	validateRequest(UserValidation.ResetPasswordZodSchema),
 	AuthController.resetPassword,
-);
+); 
 
 export const AuthRoutes = router;
