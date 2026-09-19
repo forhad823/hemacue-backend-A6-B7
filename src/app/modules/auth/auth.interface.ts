@@ -1,4 +1,4 @@
-import { BloodGroup, UserRole } from "../../../../generated/prisma/enums";
+import type { BloodGroup, UserRole } from "../../../../generated/prisma/enums";
 
 export interface IRegisterUserPayload {
 	name: string;

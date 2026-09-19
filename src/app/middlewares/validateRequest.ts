@@ -9,50 +9,50 @@ type TValidationTarget = "body" | "query" | "params" | "cookies";
 type TSchemaInput = z.ZodType | Partial<Record<TValidationTarget, z.ZodType>>;
 
 const isTargetConfig = (
-  input: TSchemaInput,
+	input: TSchemaInput,
 ): input is Partial<Record<TValidationTarget, z.ZodType>> => {
-  return (
-    typeof input === "object" &&
-    input !== null &&
-    ("body" in input ||
-      "query" in input ||
-      "params" in input ||
-      "cookies" in input)
-  );
+	return (
+		typeof input === "object" &&
+		input !== null &&
+		("body" in input ||
+			"query" in input ||
+			"params" in input ||
+			"cookies" in input)
+	);
 };
 
 export const validateRequest = (input: TSchemaInput) => {
-  return catchAsync((req: Request, res: Response, next: NextFunction) => {
-    const schemas: Partial<Record<TValidationTarget, z.ZodType>> =
-      isTargetConfig(input) ? input : { body: input };
+	return catchAsync((req: Request, res: Response, next: NextFunction) => {
+		const schemas: Partial<Record<TValidationTarget, z.ZodType>> =
+			isTargetConfig(input) ? input : { body: input };
 
-    for (const target of Object.keys(schemas) as TValidationTarget[]) {
-      const schema = schemas[target];
-      if (!schema) {
-        continue;
-      }
+		for (const target of Object.keys(schemas) as TValidationTarget[]) {
+			const schema = schemas[target];
+			if (!schema) {
+				continue;
+			}
 
-      const result = schema.safeParse(req[target]);
+			const result = schema.safeParse(req[target]);
 
-      if (!result.success) {
-        console.log(result.error.issues);
-        throw new AppError(
-          httpStatus.BAD_REQUEST,
-          result.error.issues[0].message,
-        );
-      }
+			if (!result.success) {
+				console.log(result.error.issues);
+				throw new AppError(
+					httpStatus.BAD_REQUEST,
+					result.error.issues[0].message,
+				);
+			}
 
-      // Express 5 exposes `req.query` as a getter-only property, so it can't be
-      // reassigned. Store parsed query params on `req.validatedQuery` instead.
-      if (target === "query") {
-        req.validatedQuery = result.data as Record<string, unknown>;
-      } else {
-        (req as unknown as Record<string, unknown>)[target] = result.data;
-      }
-    }
+			// Express 5 exposes `req.query` as a getter-only property, so it can't be
+			// reassigned. Store parsed query params on `req.validatedQuery` instead.
+			if (target === "query") {
+				req.validatedQuery = result.data as Record<string, unknown>;
+			} else {
+				(req as unknown as Record<string, unknown>)[target] = result.data;
+			}
+		}
 
-    next();
-  });
+		next();
+	});
 };
 export default validateRequest;
 

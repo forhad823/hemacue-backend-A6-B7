@@ -38,7 +38,7 @@ router.post(
 	authPaymentRateLimiter,
 	validateRequest(UserValidation.GoogleLoginZodSchema),
 	AuthController.googleLogin,
-); 
+);
 
 router.post(
 	"/forgot-password",
@@ -52,6 +52,6 @@ router.post(
 	authPaymentRateLimiter,
 	validateRequest(UserValidation.ResetPasswordZodSchema),
 	AuthController.resetPassword,
-); 
+);
 
 export const AuthRoutes = router;

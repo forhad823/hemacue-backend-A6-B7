@@ -5,10 +5,10 @@ import { AppError } from "../errors/AppError";
 import { catchAsync } from "../utils/catchAsync";
 import { jwtUtils } from "../utils/jwt";
 import "../types/express.d.ts";
-import { UserRole } from "../../../generated/prisma/enums";
+import type { UserRole } from "../../../generated/prisma/enums";
 import { prisma } from "../lib/prisma";
 
-export const auth = (...requiredRoles: (UserRole | string)[]) => { 
+export const auth = (...requiredRoles: (UserRole | string)[]) => {
 	return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 		const token = req.cookies?.accessToken
 			? req.cookies.accessToken
