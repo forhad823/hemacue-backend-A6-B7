@@ -1,8 +1,13 @@
 import { z } from "zod";
-import { BloodGroup, UserRole } from "../../../../generated/prisma/enums";
+import {
+  BloodGroup,
+  UserRole,
+  UserStatus,
+} from "../../../../generated/prisma/enums";
 
 const updateUserRoleSchema = z.object({
   role: z.enum(UserRole, { message: "Invalid role" }).optional(),
+  status: z.enum(UserStatus, { message: "Invalid user status" }).optional(),
   isDeleted: z.boolean().optional(),
 });
 

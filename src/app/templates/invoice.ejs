@@ -54,18 +54,50 @@
       </p>
 
       <h3>Invoice Details</h3>
-      <div class="row"><span>Invoice / Reference Number</span><span><%= payment.id %></span></div>
-      <div class="row"><span>Issue Date &amp; Time</span><span><%= issuedAt %></span></div>
-      <div class="row"><span>bKash Payment ID</span><span><%= payment.paymentID %></span></div>
-      <div class="row"><span>bKash Transaction ID</span><span><%= payment.trxID || "N/A" %></span></div>
-      <div class="row"><span>Payment Type</span><span><%= paymentTypeLabel %></span></div>
-      <div class="row"><span>Amount</span><span class="amount"><%= payment.amount.toFixed(2) %> <%= payment.currency %></span></div>
-      <div class="row"><span>Payer Reference</span><span><%= payment.payerReference || "N/A" %></span></div>
-      <div class="row"><span>Status</span><span><%= payment.status %></span></div>
+      <div class="row">
+        <span style="font-weight: bold">Invoice / Reference Number: </span
+        ><span><%= payment.id %></span>
+      </div>
+      <div class="row">
+        <span style="font-weight: bold">Issue Date &amp; Time: </span
+        ><span><%= issuedAt %></span>
+      </div>
+      <div class="row">
+        <span style="font-weight: bold">bKash Payment ID: </span
+        ><span><%= payment.paymentID %></span>
+      </div>
+      <div class="row">
+        <span style="font-weight: bold">bKash Transaction ID: </span
+        ><span><%= payment.trxID || "N/A" %></span>
+      </div>
+      <div class="row">
+        <span style="font-weight: bold">Payment Type: </span
+        ><span><%= paymentTypeLabel %></span>
+      </div>
+      <div class="row">
+        <span style="font-weight: bold">Amount: </span
+        ><span class="amount"
+          ><%= payment.amount.toFixed(2) %> <%= payment.currency %></span
+        >
+      </div>
+      <div class="row">
+        <span style="font-weight: bold">Payer Reference: </span
+        ><span><%= payment.payerReference || "N/A" %></span>
+      </div>
+      <div class="row">
+        <span style="font-weight: bold">Status: </span
+        ><span><%= payment.status %></span>
+      </div>
 
       <h3>Patient / Request Summary</h3>
-      <div class="row"><span>Patient Name</span><span><%= patientName %></span></div>
-      <div class="row"><span>Req-Id</span><span><%= payment.requestId %></span></div>
+      <div class="row">
+        <span style="font-weight: bold">Patient Name: </span
+        ><span><%= patientName %></span>
+      </div>
+      <div class="row">
+        <span style="font-weight: bold">Req-Id: </span
+        ><span><%= payment.requestId %></span>
+      </div>
 
       <div class="footer">
         &copy; Hemacue - Blood Donation &amp; Emergency Service Platform.

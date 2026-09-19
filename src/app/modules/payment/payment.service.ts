@@ -72,7 +72,7 @@ const initiatePayment = async (
   const idToken: any = await getBkashIdToken();
 
   const createResponse = await fetch(
-    `${config.bkash_base_url}/tokenized/bKash/create`,
+    `${config.bkash_base_url}/tokenized/checkout/create`,
     {
       method: "POST",
       headers: bkashApiHeaders(idToken),
@@ -80,7 +80,7 @@ const initiatePayment = async (
         mode: "0011",
         payerReference: payer.email ?? payer.phone ?? userId,
         callbackURL: `${config.bkash_callback_url}/payments/execute`,
-        amount,
+        amount: amount.toFixed(2),
         currency: "BDT",
         intent: "sale",
         merchantInvoiceNumber: `HC${Date.now()}`,
@@ -93,6 +93,8 @@ const initiatePayment = async (
     bkashURL?: string;
     statusMessage?: string;
   };
+  // testing
+  // console.log("bKash create body:", JSON.stringify(createResult, null, 2));
 
   if (!createResponse.ok || !createResult.paymentID) {
     throw new AppError(
@@ -155,7 +157,7 @@ const executePayment = async (
   const idToken = await getBkashIdToken();
 
   const executeResponse = await fetch(
-    `${config.bkash_base_url}/tokenized/bKash/execute`,
+    `${config.bkash_base_url}/tokenized/checkout/execute`,
     {
       method: "POST",
       headers: bkashApiHeaders(idToken),
@@ -301,7 +303,7 @@ const refundEmergencyLogisticsPayment = async (
   const idToken = await getBkashIdToken();
 
   const refundResponse = await fetch(
-    `${config.bkash_base_url}/tokenized/bKash/refund`,
+    `${config.bkash_base_url}/tokenized/checkout/payment/refund`,
     {
       method: "POST",
       headers: bkashApiHeaders(idToken),
@@ -413,7 +415,7 @@ const getPaymentDetails = async (
           district: true,
           city: true,
           status: true,
-        }, 
+        },
       },
     },
   });
