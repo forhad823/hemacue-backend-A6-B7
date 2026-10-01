@@ -154,6 +154,11 @@ Rate limited by `authPaymentRateLimiter` — **10 requests / 15 minutes / IP** (
 
 - **Success (200):** `{ "message": "Password Changed Successfully", "data": null }`
 
+### 1.8 Logout User
+
+- **`POST /auth/logout`**
+- **Success (200):** `{ "message": "User Logged Out Successfully", "data": null }`
+
 ---
 
 ## 2. User Module
@@ -364,6 +369,7 @@ All endpoints: authenticated (DONOR / PATIENT / ADMIN).
   }
 }
 ```
+
 **Errors:** 400 (request not verified
 
 ### 4.3 Donor respond (accept / decline)
@@ -381,7 +387,6 @@ All endpoints: authenticated (DONOR / PATIENT / ADMIN).
 - **ACCEPTED** → assignment `ACCEPTED`, other `NOTIFIED` assignments cancelled, request `VERIFIED → DONOR_ASSIGNED`, audit log `DONOR_ACCEPTED`.
 - **DECLINED** → assignment `DECLINED`, audit log `DONOR_DECLINED`.
 - **Errors:** 400 (request not verified / closed), 404 (not assigned), 409 (already responded / taken).
-
 
 ### 4.4 Update request status (state machine)
 

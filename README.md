@@ -154,6 +154,7 @@ Base URL: `http://localhost:5000/api/v1`
 | 27  | GET    | `/admin/dashboard-stats`           | ADMIN          | System analytics                          |
 | 28  | GET    | `/admin/audit-logs`                | ADMIN          | Paginated audit logs                      |
 | 29  | POST   | `/donor-matches/assign-donor`      | PATIENT, ADMIN | Assign a Donor for a blood Reqquest       |
+| 30  | POST   | `/auth/logout`                     | Autheticated   | Logging out user                          |
 
 > Full request/response bodies, query params, scripts and authorization notes live in **[`API-overview.md`](./API-overview.md)**.
 
