@@ -21,6 +21,7 @@ import type {
   IForgotPasswordPayload,
   IGoogleLoginPayload,
   ILoginUserPayload,
+  IRegisterOtpPayload,
   IRegisterUserPayload,
   IResetPasswordPayload,
   IVerifyEmailPayload,
@@ -45,11 +46,6 @@ const registerUser = async (payload: IRegisterUserPayload) => {
     );
   }
 
-  const hashedPassword = await bcrypt.hash(
-    payload.password,
-    Number(config.bcrypt_salt_rounds) || 10,
-  );
-
   const expirationSeconds = 5 * 60; // 5 minutes OTP expiry
 
   const otpKey = `user-registration-otp:${email}`;
@@ -66,7 +62,13 @@ const registerUser = async (payload: IRegisterUserPayload) => {
     },
   });
 
+  const hashedPassword = await bcrypt.hash(
+    payload.password,
+    Number(config.bcrypt_salt_rounds) || 10,
+  );
+
   const userRegistrationKey = `user-registration-data:${email}`;
+
   const redisUserDataPayload = {
     ...payload,
     email,
@@ -92,6 +94,51 @@ const registerUser = async (payload: IRegisterUserPayload) => {
 
   const templateData = {
     name: payload.name,
+    email,
+    otp: otpValue,
+    expirationMinutes: expirationSeconds / 60,
+  };
+
+  const html = await ejs.renderFile(templatePath, templateData);
+
+  await transporter.sendMail({
+    from: config.email_sender,
+    to: email,
+    subject: "Hemacue Email Verification Code",
+    html,
+  });
+
+  return { message: "Verification OTP Sent to your email" };
+};
+
+const resendRegisterOTP = async (payload: IRegisterOtpPayload) => {
+  const email = payload.email.trim().toLowerCase();
+
+  const expirationSeconds = 5 * 60; // 5 minutes OTP expiry
+
+  const otpKey = `user-registration-otp:${email}`;
+  const otpValue = crypto.randomInt(100000, 1000000).toString();
+
+  if (config.node_env === "development") {
+    console.log(`[dev] registration OTP ${email} : ${otpValue}`);
+  }
+
+  await redisClient.del(otpKey); // remove existing key for handling resend otp
+
+  await redisClient.set(otpKey, otpValue, {
+    expiration: {
+      type: "EX",
+      value: expirationSeconds,
+    },
+  });
+
+  const templatePath = path.join(
+    process.cwd(),
+    "src/app/templates/registration-user-otp.ejs",
+  );
+
+  const templateData = {
+    name: "",
     email,
     otp: otpValue,
     expirationMinutes: expirationSeconds / 60,
@@ -484,6 +531,8 @@ const forgotPassword = async (payload: IForgotPasswordPayload) => {
   const key = `forgot-password-otp:${isUserExist.email}`;
   const expirationSeconds = 5 * 60;
 
+  await redisClient.del(key); // handling resend forgot-password otp
+
   if (config.node_env === "development") {
     console.log(`[dev] forgotPassword OTP ${email} : ${otp}`);
   }
@@ -586,4 +635,5 @@ export const AuthService = {
   googleLogin,
   forgotPassword,
   resetPassword,
+  resendRegisterOTP,
 };

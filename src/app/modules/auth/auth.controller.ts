@@ -152,6 +152,17 @@ const forgotPassword = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const resendRegisterOTP = catchAsync(async (req: Request, res: Response) => {
+  await AuthService.resendRegisterOTP(req.body);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: `OTP Sent To Email: ${req.body.email}`,
+    data: null,
+  });
+});
+
 const resetPassword = catchAsync(async (req: Request, res: Response) => {
   await AuthService.resetPassword(req.body);
 
@@ -184,4 +195,5 @@ export const AuthController = {
   forgotPassword,
   resetPassword,
   logout,
+  resendRegisterOTP,
 };

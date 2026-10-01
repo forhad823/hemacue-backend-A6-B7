@@ -159,6 +159,19 @@ Rate limited by `authPaymentRateLimiter` — **10 requests / 15 minutes / IP** (
 - **`POST /auth/logout`**
 - **Success (200):** `{ "message": "User Logged Out Successfully", "data": null }`
 
+### 1.9 Resend Register OTP
+
+- **`POST /auth/verify-email/resend-otp"`** — Public
+- **Body:** `{ "email": "rahim@gmail.com" }`
+- **Success (200):** register OTP emailed.
+
+```json
+{
+  "success": true,
+  "message": "OTP Sent To Email: rahim@gmail.com",
+  "data": null
+}
+```
 ---
 
 ## 2. User Module
