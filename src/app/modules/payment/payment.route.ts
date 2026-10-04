@@ -34,6 +34,16 @@ router.post(
 	PaymentController.refundEmergencyLogisticsPayment,
 );
 
+/**
+ * Declared before "/:id" so "mine" is never captured as a payment identifier.
+ */
+router.get(
+	"/mine",
+	auth(UserRole.PATIENT, UserRole.ADMIN),
+	validateRequest({ query: PaymentValidation.myPaymentsQuerySchema }),
+	PaymentController.getMyPayments,
+);
+
 router.get(
 	"/:id",
 	auth(UserRole.PATIENT, UserRole.ADMIN),

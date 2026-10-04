@@ -13,3 +13,9 @@ export interface IExecutePaymentPayload {
 export interface IRefundPaymentPayload {
 	reason: string;
 }
+
+export interface IMyPaymentsQueryParams {
+	page: number;
+	limit: number;
+	sortOrder: "asc" | "desc";
+}

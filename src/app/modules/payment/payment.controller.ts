@@ -75,9 +75,27 @@ const getPaymentDetails = catchAsync(async (req: Request, res: Response) => {
 	});
 });
 
+const getMyPayments = catchAsync(async (req: Request, res: Response) => {
+	const userId = req.user?.userId as string;
+
+	const result = await PaymentService.getMyPayments(
+		userId,
+		(req.validatedQuery as never) ?? { page: 1, limit: 10, sortOrder: "desc" },
+	);
+
+	sendResponse(res, {
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "Payments retrieved successfully",
+		meta: result.meta,
+		data: result.data,
+	});
+});
+
 export const PaymentController = {
 	initiatePayment,
 	executePayment,
 	refundEmergencyLogisticsPayment,
 	getPaymentDetails,
+	getMyPayments,
 };

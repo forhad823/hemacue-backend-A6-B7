@@ -118,6 +118,19 @@ const getAllBloodRequests = async (queryOptions: IBloodRequestQueryOptions) => {
     orderBy,
     select: {
       ...BLOOD_REQUEST_SELECT,
+      // Admins moderate the public feed, so they need to see who posted each request.
+      requester: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          phone: true,
+          bloodGroup: true,
+          district: true,
+          city: true,
+          avatarUrl: true,
+        },
+      },
       _count: {
         select: {
           assignments: true,
