@@ -134,7 +134,7 @@ Rate limited by `authPaymentRateLimiter` — **10 requests / 15 minutes / IP** (
 - **`POST /auth/forgot-password`** — Public
 - **Body:** `{ "email": "rahim@gmail.com" }`
 - **Success (200):** reset OTP emailed.
-
+ 
 ```json
 {
   "success": true,

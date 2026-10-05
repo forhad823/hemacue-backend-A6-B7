@@ -12,7 +12,7 @@ const updateProfileValidationSchema = z.object({
 	isAvailable: z.boolean().optional(),
 	lastDonatedAt: z.iso
 		.datetime({ message: "Invalid date format. Expected ISO date string" })
-		.or(z.date())
+		.or(z.date()) 
 		.optional(),
 	bloodGroup: z.enum(BloodGroup).optional(),
 });

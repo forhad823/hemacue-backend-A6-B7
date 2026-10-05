@@ -36,14 +36,33 @@ const BLOOD_REQUEST_SELECT = {
 } as const;
 
 const buildWhereClause = (query: IBloodRequestQueryOptions) => {
-  const { bloodGroup, district, urgency, status, searchTerm } = query;
+  const {
+    bloodGroup,
+    bloodGroups,
+    neededFrom,
+    district,
+    urgency,
+    status,
+    searchTerm,
+  } = query;
 
   const where: Record<string, unknown> = {
     isDeleted: false,
   };
 
-  if (bloodGroup) {
+  if (bloodGroups?.length) {
+    // When both are sent, `bloodGroup` narrows the compatible set instead of
+    // replacing it, so a donor can never see an incompatible group.
+    where.bloodGroup = {
+      in: bloodGroup
+        ? bloodGroups.filter((group) => group === bloodGroup)
+        : bloodGroups,
+    };
+  } else if (bloodGroup) {
     where.bloodGroup = bloodGroup;
+  }
+  if (neededFrom) {
+    where.neededBy = { gte: new Date(neededFrom) };
   }
   if (district) {
     where.district = district;
@@ -118,19 +137,6 @@ const getAllBloodRequests = async (queryOptions: IBloodRequestQueryOptions) => {
     orderBy,
     select: {
       ...BLOOD_REQUEST_SELECT,
-      // Admins moderate the public feed, so they need to see who posted each request.
-      requester: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          phone: true,
-          bloodGroup: true,
-          district: true,
-          city: true,
-          avatarUrl: true,
-        },
-      },
       _count: {
         select: {
           assignments: true,
