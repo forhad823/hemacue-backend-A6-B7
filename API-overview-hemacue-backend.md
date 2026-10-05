@@ -521,7 +521,7 @@ Rate limited by `authPaymentRateLimiter` (**10 requests per 15 minutes per IP**)
 {
   "patientName": "Karin Chowdhury",
   "bloodGroup": "AB_POSITIVE",
-  "quantity": 2,
+  "unitsRequired": 2,
   "hospitalName": "Square Hospital",
   "hospitalAddress": "Panthapath, Dhaka",
   "district": "Dhaka",
@@ -544,7 +544,7 @@ Rate limited by `authPaymentRateLimiter` (**10 requests per 15 minutes per IP**)
     "requesterId": "usr_clx10928374",
     "patientName": "Karin Chowdhury",
     "bloodGroup": "AB_POSITIVE",
-    "quantity": 2,
+    "unitsRequired": 2,
     "hospitalName": "Square Hospital",
     "status": "PENDING",
     "isUrgent": true,
@@ -587,7 +587,7 @@ Rate limited by `authPaymentRateLimiter` (**10 requests per 15 minutes per IP**)
       "id": "req_9920182",
       "patientName": "Karin Chowdhury",
       "bloodGroup": "AB_POSITIVE",
-      "quantity": 2,
+      "unitsRequired": 2,
       "hospitalName": "Square Hospital",
       "district": "Dhaka",
       "neededBy": "2026-10-10T14:00:00.000Z",
@@ -665,7 +665,7 @@ Rate limited by `authPaymentRateLimiter` (**10 requests per 15 minutes per IP**)
 
 ```json
 {
-  "quantity": 3,
+  "unitsRequired": 3,
   "reason": "Emergency surgery shifted to earlier time",
   "isUrgent": true
 }
@@ -678,7 +678,7 @@ Rate limited by `authPaymentRateLimiter` (**10 requests per 15 minutes per IP**)
   "success": true,
   "statusCode": 200,
   "message": "Blood request updated successfully",
-  "data": { "id": "req_9920182", "quantity": 3 }
+  "data": { "id": "req_9920182", "unitsRequired": 3 }
 }
 ```
 

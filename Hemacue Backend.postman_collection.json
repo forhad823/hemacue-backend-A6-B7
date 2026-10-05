@@ -18,7 +18,11 @@
             "url": {
               "raw": "https://hemacue-backend.vercel.app",
               "protocol": "https",
-              "host": ["hemacue-backend", "vercel", "app"]
+              "host": [
+                "hemacue-backend",
+                "vercel",
+                "app"
+              ]
             }
           },
           "response": []
@@ -44,8 +48,13 @@
             },
             "url": {
               "raw": "{{baseURL}}/auth/login",
-              "host": ["{{baseURL}}"],
-              "path": ["auth", "login"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
             }
           },
           "response": []
@@ -66,8 +75,13 @@
             },
             "url": {
               "raw": "{{baseURL}}/auth/login",
-              "host": ["{{baseURL}}"],
-              "path": ["auth", "login"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
             }
           },
           "response": []
@@ -88,8 +102,13 @@
             },
             "url": {
               "raw": "{{baseURL}}/auth/login",
-              "host": ["{{baseURL}}"],
-              "path": ["auth", "login"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
             }
           },
           "response": []
@@ -121,8 +140,13 @@
             },
             "url": {
               "raw": "{{baseURL}}/auth/google-login",
-              "host": ["{{baseURL}}"],
-              "path": ["auth", "google-login"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "google-login"
+              ]
             }
           },
           "response": []
@@ -143,8 +167,13 @@
             },
             "url": {
               "raw": "{{baseURL}}/auth/register",
-              "host": ["{{baseURL}}"],
-              "path": ["auth", "register"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
             }
           },
           "response": []
@@ -165,8 +194,13 @@
             },
             "url": {
               "raw": "{{baseURL}}/auth/verify-email",
-              "host": ["{{baseURL}}"],
-              "path": ["auth", "verify-email"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "verify-email"
+              ]
             }
           },
           "response": []
@@ -181,8 +215,12 @@
             "header": [],
             "url": {
               "raw": "{{baseURL}}/refresh-token",
-              "host": ["{{baseURL}}"],
-              "path": ["refresh-token"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "refresh-token"
+              ]
             }
           },
           "response": []
@@ -203,8 +241,13 @@
             },
             "url": {
               "raw": "{{baseURL}}/auth/forgot-password",
-              "host": ["{{baseURL}}"],
-              "path": ["auth", "forgot-password"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "forgot-password"
+              ]
             }
           },
           "response": []
@@ -225,8 +268,13 @@
             },
             "url": {
               "raw": "{{baseURL}}/auth/reset-password",
-              "host": ["{{baseURL}}"],
-              "path": ["auth", "reset-password"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "reset-password"
+              ]
             }
           },
           "response": []
@@ -250,8 +298,41 @@
             },
             "url": {
               "raw": "{{baseURL}}/auth/verify-email/resend-otp",
-              "host": ["{{baseURL}}"],
-              "path": ["auth", "verify-email", "resend-otp"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "verify-email",
+                "resend-otp"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/auth/logout",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
             }
           },
           "response": []
@@ -271,8 +352,13 @@
             "header": [],
             "url": {
               "raw": "{{baseURL}}/users/me",
-              "host": ["{{baseURL}}"],
-              "path": ["users", "me"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "users",
+                "me"
+              ]
             }
           },
           "response": []
@@ -293,8 +379,13 @@
             },
             "url": {
               "raw": "{{baseURL}}/users/me",
-              "host": ["{{baseURL}}"],
-              "path": ["users", "me"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "users",
+                "me"
+              ]
             }
           },
           "response": []
@@ -321,8 +412,14 @@
             },
             "url": {
               "raw": "{{baseURL}}/users/me/avatar",
-              "host": ["{{baseURL}}"],
-              "path": ["users", "me", "avatar"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "users",
+                "me",
+                "avatar"
+              ]
             }
           },
           "response": []
@@ -348,8 +445,12 @@
             },
             "url": {
               "raw": "{{baseURL}}/blood-requests",
-              "host": ["{{baseURL}}"],
-              "path": ["blood-requests"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "blood-requests"
+              ]
             }
           },
           "response": []
@@ -360,9 +461,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseURL}}/blood-requests?searchTerm=Karim",
-              "host": ["{{baseURL}}"],
-              "path": ["blood-requests"],
+              "raw": "{{baseURL}}/blood-requests",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "blood-requests"
+              ],
               "query": [
                 {
                   "key": "bloodGroup",
@@ -378,10 +483,6 @@
                   "key": "page",
                   "value": "1",
                   "disabled": true
-                },
-                {
-                  "key": "searchTerm",
-                  "value": "Karim"
                 },
                 {
                   "key": "urgency",
@@ -405,8 +506,13 @@
             "header": [],
             "url": {
               "raw": "{{baseURL}}/blood-requests/8b68fe9e-eb6c-4128-968e-b73fed473ce3",
-              "host": ["{{baseURL}}"],
-              "path": ["blood-requests", "8b68fe9e-eb6c-4128-968e-b73fed473ce3"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "blood-requests",
+                "8b68fe9e-eb6c-4128-968e-b73fed473ce3"
+              ]
             }
           },
           "response": []
@@ -418,8 +524,13 @@
             "header": [],
             "url": {
               "raw": "{{baseURL}}/blood-requests/my-requests",
-              "host": ["{{baseURL}}"],
-              "path": ["blood-requests", "my-requests"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "blood-requests",
+                "my-requests"
+              ]
             }
           },
           "response": []
@@ -440,8 +551,13 @@
             },
             "url": {
               "raw": "{{baseURL}}/blood-requests/c1655600-8fef-4bcc-baaf-56cb7741d605",
-              "host": ["{{baseURL}}"],
-              "path": ["blood-requests", "c1655600-8fef-4bcc-baaf-56cb7741d605"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "blood-requests",
+                "c1655600-8fef-4bcc-baaf-56cb7741d605"
+              ]
             }
           },
           "response": []
@@ -453,8 +569,13 @@
             "header": [],
             "url": {
               "raw": "{{baseURL}}/blood-requests/8b68fe9e-eb6c-4128-968e-b73fed473ce3",
-              "host": ["{{baseURL}}"],
-              "path": ["blood-requests", "8b68fe9e-eb6c-4128-968e-b73fed473ce3"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "blood-requests",
+                "8b68fe9e-eb6c-4128-968e-b73fed473ce3"
+              ]
             }
           },
           "response": []
@@ -471,8 +592,13 @@
             "header": [],
             "url": {
               "raw": "{{baseURL}}/donor-matches/compatible-donors?bloodGroup=B_NEGATIVE",
-              "host": ["{{baseURL}}"],
-              "path": ["donor-matches", "compatible-donors"],
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "donor-matches",
+                "compatible-donors"
+              ],
               "query": [
                 {
                   "key": "bloodGroup",
@@ -499,7 +625,9 @@
             },
             "url": {
               "raw": "{{baseURL}}/blood-requests/2436a8f5-f3ce-43f1-9b07-702b0e343338/status",
-              "host": ["{{baseURL}}"],
+              "host": [
+                "{{baseURL}}"
+              ],
               "path": [
                 "blood-requests",
                 "2436a8f5-f3ce-43f1-9b07-702b0e343338",
@@ -516,8 +644,13 @@
             "header": [],
             "url": {
               "raw": "{{baseURL}}/donor-matches/my-donations",
-              "host": ["{{baseURL}}"],
-              "path": ["donor-matches", "my-donations"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "donor-matches",
+                "my-donations"
+              ]
             }
           },
           "response": []
@@ -538,7 +671,9 @@
             },
             "url": {
               "raw": "{{baseURL}}/blood-requests/2436a8f5-f3ce-43f1-9b07-702b0e343338/respond",
-              "host": ["{{baseURL}}"],
+              "host": [
+                "{{baseURL}}"
+              ],
               "path": [
                 "blood-requests",
                 "2436a8f5-f3ce-43f1-9b07-702b0e343338",
@@ -564,8 +699,13 @@
             },
             "url": {
               "raw": "{{baseURL}}/donor-matches/assign-donor",
-              "host": ["{{baseURL}}"],
-              "path": ["donor-matches", "assign-donor"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "donor-matches",
+                "assign-donor"
+              ]
             }
           },
           "response": []
@@ -591,8 +731,13 @@
             },
             "url": {
               "raw": "{{baseURL}}/payments/initiate",
-              "host": ["{{baseURL}}"],
-              "path": ["payments", "initiate"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "payments",
+                "initiate"
+              ]
             },
             "description": "active customer wallets: 01770618575\n\nOTP: 123456\n\nPIN: 12121"
           },
@@ -614,21 +759,40 @@
             },
             "url": {
               "raw": "{{baseURL}}/payments/execute",
-              "host": ["{{baseURL}}"],
-              "path": ["payments", "execute"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "payments",
+                "execute"
+              ]
             }
           },
           "response": []
         },
         {
-          "name": "Get Payment Details",
+          "name": "Get Payment Details by Id",
           "request": {
             "method": "GET",
             "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "{{baseURL}}/payments/aa081669-774d-41cf-a49e-7d4f3cff1164",
-              "host": ["{{baseURL}}"],
-              "path": ["payments", "aa081669-774d-41cf-a49e-7d4f3cff1164"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "payments",
+                "aa081669-774d-41cf-a49e-7d4f3cff1164"
+              ]
             },
             "description": "**Params:**  - \\`id\\` — either the **DB payment UUID** or the **bKash \\`paymentID\\`**"
           },
@@ -650,11 +814,31 @@
             },
             "url": {
               "raw": "{{baseURL}}/payments/refund/2436a8f5-f3ce-43f1-9b07-702b0e343338",
-              "host": ["{{baseURL}}"],
+              "host": [
+                "{{baseURL}}"
+              ],
               "path": [
                 "payments",
                 "refund",
                 "2436a8f5-f3ce-43f1-9b07-702b0e343338"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get My Payments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/payments/mine",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "payments",
+                "mine"
               ]
             }
           },
@@ -672,8 +856,13 @@
             "header": [],
             "url": {
               "raw": "{{baseURL}}/admin/users?sortBy=role",
-              "host": ["{{baseURL}}"],
-              "path": ["admin", "users"],
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "admin",
+                "users"
+              ],
               "query": [
                 {
                   "key": "searchTerm",
@@ -730,7 +919,9 @@
             },
             "url": {
               "raw": "{{baseURL}}/admin/users/5274a612-2625-46e1-b2ec-7e218a5c0825/role",
-              "host": ["{{baseURL}}"],
+              "host": [
+                "{{baseURL}}"
+              ],
               "path": [
                 "admin",
                 "users",
@@ -748,8 +939,13 @@
             "header": [],
             "url": {
               "raw": "{{baseURL}}/admin/dashboard-stats",
-              "host": ["{{baseURL}}"],
-              "path": ["admin", "dashboard-stats"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "admin",
+                "dashboard-stats"
+              ]
             }
           },
           "response": []
@@ -761,8 +957,13 @@
             "header": [],
             "url": {
               "raw": "{{baseURL}}/admin/audit-logs",
-              "host": ["{{baseURL}}"],
-              "path": ["admin", "audit-logs"]
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "admin",
+                "audit-logs"
+              ]
             }
           },
           "response": []
@@ -773,7 +974,8 @@
   "variable": [
     {
       "key": "baseURL",
-      "value": "http://localhost:5000/api/v1"
+      "value": "http://localhost:5000/api/v1",
+      "disabled": true
     },
     {
       "key": "host",
@@ -781,8 +983,7 @@
     },
     {
       "key": "baseURL",
-      "value": "https://hemacue-backend.vercel.app/api/v1",
-      "disabled": true
+      "value": "https://hemacue-backend.vercel.app/api/v1"
     }
   ]
 }
