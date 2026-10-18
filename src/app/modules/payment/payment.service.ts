@@ -78,7 +78,7 @@ const initiatePayment = async (
     where: { id: userId },
   });
 
-  const idToken: any = await getBkashIdToken();
+  const idToken: string = await getBkashIdToken();
 
   const createResponse = await fetch(
     `${config.bkash_base_url}/tokenized/checkout/create`,
