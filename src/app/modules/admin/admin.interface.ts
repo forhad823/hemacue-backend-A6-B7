@@ -1,5 +1,7 @@
 import type {
 	BloodGroup,
+	PaymentStatus,
+	PaymentType,
 	UserRole,
 	UserStatus,
 } from "../../../../generated/prisma/enums";
@@ -18,6 +20,17 @@ export interface IAdminUsersQueryParams {
 	role?: UserRole;
 	bloodGroup?: BloodGroup;
 	district?: string;
+	searchTerm?: string;
+}
+
+export interface IAdminPaymentsQueryParams {
+	page: number;
+	limit: number;
+	sortBy: "createdAt" | "amount";
+	sortOrder: "asc" | "desc";
+	status?: PaymentStatus;
+	paymentType?: PaymentType;
+	/** Matches paymentID, trxID, or the payer's email. */
 	searchTerm?: string;
 }
 

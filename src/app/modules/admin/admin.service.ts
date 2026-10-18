@@ -9,6 +9,7 @@ import {
 import { AppError } from "../../errors/AppError";
 import { prisma } from "../../lib/prisma";
 import type {
+	IAdminPaymentsQueryParams,
 	IAdminUsersQueryParams,
 	IAuditLogsQueryParams,
 	IUpdateUserRolePayload,
@@ -325,8 +326,83 @@ const getDashboardStats = async () => {
 	};
 };
 
+const buildPaymentsWhere = (query: IAdminPaymentsQueryParams) => {
+	const { status, paymentType, searchTerm } = query;
+
+	const where: Record<string, unknown> = {};
+
+	if (status) {
+		where.status = status;
+	}
+	if (paymentType) {
+		where.paymentType = paymentType;
+	}
+	if (searchTerm) {
+		where.OR = [
+			{ paymentID: { contains: searchTerm, mode: "insensitive" } },
+			{ trxID: { contains: searchTerm, mode: "insensitive" } },
+			{ user: { email: { contains: searchTerm, mode: "insensitive" } } },
+		];
+	}
+
+	return where;
+};
+
+const getAllPayments = async (query: IAdminPaymentsQueryParams) => {
+	const {
+		page = 1,
+		limit = 10,
+		sortBy = "createdAt",
+		sortOrder = "desc",
+	} = query;
+
+	const where = buildPaymentsWhere(query);
+	const skip = (page - 1) * limit;
+	const orderBy = { [sortBy]: sortOrder };
+
+	const total = await prisma.payment.count({ where });
+
+	const payments = await prisma.payment.findMany({
+		where,
+		skip,
+		take: limit,
+		orderBy,
+		include: {
+			user: {
+				select: {
+					id: true,
+					name: true,
+					email: true,
+					avatarUrl: true,
+				},
+			},
+			request: {
+				select: {
+					id: true,
+					patientName: true,
+					bloodGroup: true,
+					hospitalName: true,
+					status: true,
+				},
+			},
+		},
+	});
+
+	return {
+		meta: {
+			page,
+			limit,
+			total,
+			totalPages: Math.ceil(total / limit),
+			totalPage: Math.ceil(total / limit),
+		},
+		data: payments,
+	};
+};
+
 export const AdminService = {
 	getAllUsers,
+	getAllPayments,
 	updateUserRole,
 	getAuditLogs,
 	getDashboardStats,

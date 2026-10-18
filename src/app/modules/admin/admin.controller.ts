@@ -18,6 +18,20 @@ const getAllUsers = catchAsync(async (req: Request, res: Response) => {
 	});
 });
 
+const getAllPayments = catchAsync(async (req: Request, res: Response) => {
+	const result = await AdminService.getAllPayments(
+		(req.validatedQuery as never) ?? {},
+	);
+
+	sendResponse(res, {
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "Payments retrieved successfully",
+		meta: result.meta,
+		data: result.data,
+	});
+});
+
 const updateUserRole = catchAsync(async (req: Request, res: Response) => {
 	const { id } = req.params as { id: string };
 	const adminId = req.user?.userId as string;
@@ -64,6 +78,7 @@ const getAuditLogs = catchAsync(async (req: Request, res: Response) => {
 
 export const AdminController = {
 	getAllUsers,
+	getAllPayments,
 	updateUserRole,
 	getDashboardStats,
 	getAuditLogs,

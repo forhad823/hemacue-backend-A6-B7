@@ -14,6 +14,13 @@ router.get(
 	AdminController.getAllUsers,
 );
 
+router.get(
+	"/payments",
+	auth(UserRole.ADMIN),
+	validateRequest({ query: AdminValidation.adminPaymentsQuerySchema }),
+	AdminController.getAllPayments,
+);
+
 router.patch(
 	"/users/:id/role",
 	auth(UserRole.ADMIN),

@@ -9,46 +9,46 @@ import { PaymentValidation } from "./payment.validation";
 const router = Router();
 
 router.post(
-  "/initiate",
-  auth(UserRole.PATIENT, UserRole.ADMIN),
-  authPaymentRateLimiter,
-  validateRequest({ body: PaymentValidation.initiatePaymentSchema }),
-  PaymentController.initiatePayment,
+	"/initiate",
+	auth(UserRole.PATIENT, UserRole.ADMIN),
+	authPaymentRateLimiter,
+	validateRequest({ body: PaymentValidation.initiatePaymentSchema }),
+	PaymentController.initiatePayment,
 );
 
 router.post(
-  "/execute",
-  auth(UserRole.PATIENT, UserRole.ADMIN),
-  authPaymentRateLimiter,
-  validateRequest({ body: PaymentValidation.executePaymentSchema }),
-  PaymentController.executePayment,
+	"/execute",
+	auth(UserRole.PATIENT, UserRole.ADMIN),
+	authPaymentRateLimiter,
+	validateRequest({ body: PaymentValidation.executePaymentSchema }),
+	PaymentController.executePayment,
 );
 
 router.post(
-  "/refund/:requestId",
-  auth(UserRole.ADMIN),
-  validateRequest({
-    params: PaymentValidation.refundPaymentParamsSchema,
-    body: PaymentValidation.refundPaymentSchema,
-  }),
-  PaymentController.refundEmergencyLogisticsPayment,
+	"/refund/:requestId",
+	auth(UserRole.ADMIN),
+	validateRequest({
+		params: PaymentValidation.refundPaymentParamsSchema,
+		body: PaymentValidation.refundPaymentSchema,
+	}),
+	PaymentController.refundEmergencyLogisticsPayment,
 );
 
 /**
  * Declared before "/:id" so "mine" is never captured as a payment identifier.
  */
 router.get(
-  "/mine",
-  auth(UserRole.PATIENT, UserRole.ADMIN),
-  validateRequest({ query: PaymentValidation.myPaymentsQuerySchema }),
-  PaymentController.getMyPayments,
+	"/mine",
+	auth(UserRole.PATIENT, UserRole.ADMIN),
+	validateRequest({ query: PaymentValidation.myPaymentsQuerySchema }),
+	PaymentController.getMyPayments,
 );
 
 router.get(
-  "/:id",
-  auth(UserRole.PATIENT, UserRole.ADMIN),
-  validateRequest({ params: PaymentValidation.paymentIdParamSchema }),
-  PaymentController.getPaymentDetails,
+	"/:id",
+	auth(UserRole.PATIENT, UserRole.ADMIN),
+	validateRequest({ params: PaymentValidation.paymentIdParamSchema }),
+	PaymentController.getPaymentDetails,
 );
 
 export const PaymentRoutes = router;

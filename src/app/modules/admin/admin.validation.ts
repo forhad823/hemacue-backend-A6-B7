@@ -1,6 +1,8 @@
 import { z } from "zod";
 import {
 	BloodGroup,
+	PaymentStatus,
+	PaymentType,
 	UserRole,
 	UserStatus,
 } from "../../../../generated/prisma/enums";
@@ -36,7 +38,7 @@ const adminUsersQuerySchema = z.object({
 });
 
 const targetUserIdParamsSchema = z.object({
-	id: z.string().uuid("Invalid user id format"),
+	id: z.uuid("Invalid user id format"),
 });
 
 const auditLogsQuerySchema = z.object({
@@ -60,9 +62,35 @@ const auditLogsQuerySchema = z.object({
 	actorEmail: z.string().trim().optional(),
 });
 
+const adminPaymentsQuerySchema = z.object({
+	page: z.coerce
+		.number()
+		.int("Page must be an integer")
+		.min(1, "Page must be at least 1")
+		.default(1),
+	limit: z.coerce
+		.number()
+		.int("Limit must be an integer")
+		.min(1, "Limit must be at least 1")
+		.max(100, "Limit must be at most 100")
+		.default(10),
+	sortBy: z
+		.enum(["createdAt", "amount"], { message: "Invalid sort field" })
+		.default("createdAt"),
+	sortOrder: z.enum(["asc", "desc"]).default("desc"),
+	status: z
+		.enum(PaymentStatus, { message: "Invalid payment status" })
+		.optional(),
+	paymentType: z
+		.enum(PaymentType, { message: "Invalid payment type" })
+		.optional(),
+	searchTerm: z.string().trim().optional(),
+});
+
 export const AdminValidation = {
 	updateUserRoleSchema,
 	adminUsersQuerySchema,
+	adminPaymentsQuerySchema,
 	targetUserIdParamsSchema,
 	auditLogsQuerySchema,
 };
