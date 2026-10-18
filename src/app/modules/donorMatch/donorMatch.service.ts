@@ -365,34 +365,93 @@ const updateRequestStatus = async (
   return { status };
 };
 
-const getMyDonations = async (donorId: string) => {
-  const donations = await prisma.donorAssignment.findMany({
-    where: { donorId },
-    include: {
-      request: {
-        select: {
-          id: true,
-          patientName: true,
-          patientAge: true,
-          bloodGroup: true,
-          unitsRequired: true,
-          hospitalName: true,
-          hospitalAddress: true,
-          district: true,
-          city: true,
-          urgency: true,
-          status: true,
-          neededBy: true,
-          isLogisticsPaid: true,
-          notes: true,
-          createdAt: true,
+const getMyDonations = async (
+  donorId: string,
+  query: import("./donorMatch.interface").IMyDonationsQueryParams = {},
+) => {
+  const {
+    page = 1,
+    limit = 6,
+    sortBy = "assignedAt",
+    sortOrder = "desc",
+    status,
+    urgency,
+    bloodGroup,
+    searchTerm,
+  } = query;
+
+  const skip = (page - 1) * limit;
+
+  const where: Record<string, unknown> = { donorId };
+
+  if (status) {
+    where.status = status;
+  }
+
+  // Build request-level filters
+  const requestFilter: Record<string, unknown> = {};
+  if (urgency) {
+    requestFilter.urgency = urgency;
+  }
+  if (bloodGroup) {
+    requestFilter.bloodGroup = bloodGroup;
+  }
+  if (searchTerm) {
+    requestFilter.OR = [
+      { patientName: { contains: searchTerm, mode: "insensitive" } },
+      { hospitalName: { contains: searchTerm, mode: "insensitive" } },
+    ];
+  }
+  if (Object.keys(requestFilter).length > 0) {
+    where.request = requestFilter;
+  }
+
+  const orderBy =
+    sortBy === "neededBy"
+      ? { request: { neededBy: sortOrder } }
+      : { [sortBy]: sortOrder };
+
+  const [total, donations] = await Promise.all([
+    prisma.donorAssignment.count({ where }),
+    prisma.donorAssignment.findMany({
+      where,
+      skip,
+      take: limit,
+      orderBy,
+      include: {
+        request: {
+          select: {
+            id: true,
+            patientName: true,
+            patientAge: true,
+            bloodGroup: true,
+            unitsRequired: true,
+            hospitalName: true,
+            hospitalAddress: true,
+            district: true,
+            city: true,
+            urgency: true,
+            status: true,
+            neededBy: true,
+            isLogisticsPaid: true,
+            notes: true,
+            createdAt: true,
+          },
         },
       },
-    },
-    orderBy: { assignedAt: "desc" },
-  });
+    }),
+  ]);
 
-  return donations;
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+      totalPage: Math.ceil(total / limit),
+    },
+    data: donations,
+  };
 };
 
 export const DonorMatchService = {

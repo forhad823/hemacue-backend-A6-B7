@@ -435,32 +435,59 @@ const getPaymentDetails = async (
  * payment-history screen without needing to aggregate per request.
  */
 const getMyPayments = async (userId: string, query: IMyPaymentsQueryParams) => {
-  const { page = 1, limit = 10, sortOrder = "desc" } = query;
+  const {
+    page = 1,
+    limit = 10,
+    sortBy = "createdAt",
+    sortOrder = "desc",
+    status,
+    paymentType,
+    searchTerm,
+  } = query;
   const skip = (page - 1) * limit;
 
-  const where = { userId };
+  const where: Record<string, unknown> = { userId };
 
-  const total = await prisma.payment.count({ where });
-
-  const payments = await prisma.payment.findMany({
-    where,
-    skip,
-    take: limit,
-    orderBy: { createdAt: sortOrder },
-    include: {
-      request: {
-        select: {
-          id: true,
-          patientName: true,
-          bloodGroup: true,
-          hospitalName: true,
-          district: true,
-          city: true,
-          status: true,
+  if (status) {
+    where.status = status;
+  }
+  if (paymentType) {
+    where.paymentType = paymentType;
+  }
+  if (searchTerm) {
+    where.OR = [
+      { paymentID: { contains: searchTerm, mode: "insensitive" } },
+      { trxID: { contains: searchTerm, mode: "insensitive" } },
+      {
+        request: {
+          patientName: { contains: searchTerm, mode: "insensitive" },
         },
       },
-    },
-  });
+    ];
+  }
+
+  const [total, payments] = await Promise.all([
+    prisma.payment.count({ where }),
+    prisma.payment.findMany({
+      where,
+      skip,
+      take: limit,
+      orderBy: { [sortBy]: sortOrder },
+      include: {
+        request: {
+          select: {
+            id: true,
+            patientName: true,
+            bloodGroup: true,
+            hospitalName: true,
+            district: true,
+            city: true,
+            status: true,
+          },
+        },
+      },
+    }),
+  ]);
 
   return {
     meta: {
