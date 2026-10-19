@@ -45,7 +45,7 @@ Hemacue bridges the gap between emergency blood seekers (patients/hospitals) and
 - **Strict Type Safety**: Written 100% in TypeScript with Prisma 7 generated client types and Zod schema validations.
 - **Medical Blood Compatibility Logic**: Automated checking of compatible blood types (e.g., `O_NEGATIVE` universal donor, `AB_POSITIVE` universal recipient).
 - **Guarded State Machine Workflow**: Request status transitions follow strict rules:
-  $$\text{PENDING} \rightarrow \text{VERIFIED} \rightarrow \text{DONOR\_ASSIGNED} \rightarrow \text{IN\_PROGRESS} \rightarrow \text{COMPLETED}$$
+  PENDING > VERIFIED > DONOR_ASSIGNED > IN_PROGRESS > COMPLETED
 - **Tokenized bKash Checkout**: Integrates real bKash sandbox API (`grant-token`, `create`, `execute`, `refund`) with automated token caching in Redis.
 - **PDF Invoicing & Mail Delivery**: Generates stream-based PDF invoices using `pdfkit` and renders responsive HTML email templates with `ejs` delivered via `nodemailer`.
 - **Comprehensive Audit Trail**: Automatically captures high-impact administrative and donor state modifications (`AuditLog` table).
