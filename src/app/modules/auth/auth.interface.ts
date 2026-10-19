@@ -42,7 +42,6 @@ export interface IRegisterOtpPayload {
 	email: string;
 }
 
-
 export interface IResetPasswordPayload {
 	email: string;
 	newPassword: string;

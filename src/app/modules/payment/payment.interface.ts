@@ -1,4 +1,7 @@
-import type { PaymentStatus, PaymentType } from "../../../../generated/prisma/enums";
+import type {
+	PaymentStatus,
+	PaymentType,
+} from "../../../../generated/prisma/enums";
 
 export interface IInitiatePaymentPayload {
 	requestId: string;

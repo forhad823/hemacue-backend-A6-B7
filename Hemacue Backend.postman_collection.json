@@ -1,989 +1,1276 @@
 {
-  "info": {
-    "_postman_id": "54e9a032-2638-496d-957d-20ad25b1e9cf",
-    "name": "Hemacue Backend",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "53938729",
-    "_collection_link": "https://go.postman.co/collection/53938729-54e9a032-2638-496d-957d-20ad25b1e9cf?source=collection_link"
-  },
-  "item": [
-    {
-      "name": "Home",
-      "item": [
-        {
-          "name": "root",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://hemacue-backend.vercel.app",
-              "protocol": "https",
-              "host": [
-                "hemacue-backend",
-                "vercel",
-                "app"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "auth",
-      "item": [
-        {
-          "name": "Admin login",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n   \"email\":\"testeradmin@gmail.com\",\r\n   \"password\":\"Tester@admin12345\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/auth/login",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "auth",
-                "login"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "login with email password",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n   \"email\":\"boy.tareq244@gmail.com\",\r\n   \"password\":\"Password123!\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/auth/login",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "auth",
-                "login"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "donor login",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n   \"email\":\"donor-2@gmail.com\",\r\n   \"password\":\"Password123!\"\r\n}\r\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/auth/login",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "auth",
-                "login"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "google-login-with-idToken",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Response is JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\npm.test(\"Response has expected error structure\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"success\", false);\r\n    pm.expect(jsonData).to.have.property(\"message\", \"Validation Error\");\r\n    pm.expect(jsonData).to.have.property(\"errors\").that.is.an(\"array\");\r\n});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"idToken\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6ImYxMGY4NzQwNWE5NzljMWRmMzZkZjI2NjA2NzM0ZjMzY2Q4NWMyNzEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI4Nzk1MDU4OTc2OTAtZGJpdDdtODZoZWUxOWlxNjJjN2FxajQ3bWUydWw1aHAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI4Nzk1MDU4OTc2OTAtZGJpdDdtODZoZWUxOWlxNjJjN2FxajQ3bWUydWw1aHAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDU3OTIyOTYyODc4OTM5OTY1MDMiLCJlbWFpbCI6ImZvcmhhZHVkZGluODIzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYmYiOjE3ODk3OTk3MTMsIm5hbWUiOiJmb3JoYWQgdWRkaW4iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSVNNQVczS3hEQlg4SlpCTklnekhpczlfSmtSWHJUeHFhR0lzenJPWU13Q3Y4Ulg2N249czk2LWMiLCJnaXZlbl9uYW1lIjoiZm9yaGFkIiwiZmFtaWx5X25hbWUiOiJ1ZGRpbiIsImlhdCI6MTc4OTgwMDAxMywiZXhwIjoxNzg5ODAzNjEzLCJqdGkiOiIyMzExODkyOThkZjQ2ZDg4NDY2MzY3YTEyN2M4ZWMzNjM5Y2Y1MWU0In0.eCvZS_IpICTneR4w3XYj8DC8koOu0uXc8xMiCboAA0XPEmmsFJXa8yZyczvYiaAip81Y_eKibKiZYrrZ8mLBrbOqLXe60WndcQ7A2-G_Wb-KuZMgM8WRyGUeqnjmB1WXqpPmy9Fe2lGI9lY4Bd5zV2tpz4VWVbNd7fLMNHmv_jeh9kEG_0MjpdQkU7SOWelD_GH1K6tpXYUrVGASjQJnFgUG45dSbgfBBtAMG2nZC5vh9oVluPslM-h1ruokQ27zFgWOm-Xrak41dbBb-YvNb5jGBB-pf9s3AUlfWX8us1tINKcjoDk__vYBqSJvXw1nhlmH0ZfdmDNcONoxzw59wg\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/auth/google-login",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "auth",
-                "google-login"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Register User",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"name\": \"Tareq boy\",\r\n  \"email\": \"boy.tareq244@gmail.com\",\r\n  \"password\": \"Password123!\",\r\n  \"role\": \"PATIENT\",\r\n  \"bloodGroup\": \"B_POSITIVE\",\r\n  \"phone\": \"+8801700000000\",\r\n  \"district\": \"Dhaka\",\r\n  \"city\": \"Dhaka North\",\r\n  \"address\": \"Banani, Block C\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/auth/register",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "auth",
-                "register"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "verify-email with OTP and email",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"email\": \"boy.tareq244@gmail.com\",\r\n    \"otp\": \"894965\"\r\n  }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/auth/verify-email",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "auth",
-                "verify-email"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "generate Access Token using Refresh Token",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "{{baseURL}}/refresh-token",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "refresh-token"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "forgot password",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"email\":\"boy.tareq244@gmail.com\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/auth/forgot-password",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "auth",
-                "forgot-password"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Reset Password",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n   \"email\":\"boy.tareq244@gmail.com\",\r\n   \"otp\":\"885953\",\r\n   \"newPassword\":\"Password123!\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/auth/reset-password",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "auth",
-                "reset-password"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "resend-reg-OTP",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {}
-          },
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"email\": \"boy.tareq244@gmail.com\"\r\n  }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/auth/verify-email/resend-otp",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "auth",
-                "verify-email",
-                "resend-otp"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Logout",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/auth/logout",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "auth",
-                "logout"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "user",
-      "item": [
-        {
-          "name": "Get Profile of Logged-in User",
-          "request": {
-            "auth": {
-              "type": "bearer"
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseURL}}/users/me",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "users",
-                "me"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Profile of Logged-in User",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"district\": \"Noakhali\",\r\n  \"city\": \"Noakhali\",\r\n  \"address\": \"Subornachar\",\r\n  \"latitude\": 22.6833,\r\n  \"longitude\": 91.1100\r\n}\r\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/users/me",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "users",
-                "me"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Upload avatar",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "avatar",
-                  "type": "file",
-                  "src": [
-                    "postman-cloud:///1f1b316a-dfae-4730-8dbc-f5824ca5a335"
-                  ]
-                }
-              ]
-            },
-            "url": {
-              "raw": "{{baseURL}}/users/me/avatar",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "users",
-                "me",
-                "avatar"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "bloodRequest",
-      "item": [
-        {
-          "name": "create BloodRequest",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"patientName\": \"Amin\",\r\n  \"patientAge\": 40,\r\n  \"bloodGroup\": \"B_NEGATIVE\",\r\n  \"unitsRequired\": 1,\r\n  \"hospitalName\": \"Apollo Hospital\",\r\n  \"hospitalAddress\": \"Dhaka, Shahbag\",\r\n  \"district\": \"Dhaka\",\r\n  \"city\": \"Dhaka\",\r\n  \"urgency\": \"EMERGENCY\",\r\n  \"neededBy\": \"2026-10-01T12:00:00.000Z\",\r\n  \"notes\": \"urgent\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/blood-requests",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "blood-requests"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get All BloodRequests",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseURL}}/blood-requests",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "blood-requests"
-              ],
-              "query": [
-                {
-                  "key": "bloodGroup",
-                  "value": "B_NEGATIVE",
-                  "disabled": true
-                },
-                {
-                  "key": "limit",
-                  "value": "10",
-                  "disabled": true
-                },
-                {
-                  "key": "page",
-                  "value": "1",
-                  "disabled": true
-                },
-                {
-                  "key": "urgency",
-                  "value": "EMERGENCY",
-                  "disabled": true
-                },
-                {
-                  "key": "status",
-                  "value": "DONOR_ASSIGNED",
-                  "disabled": true
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get BloodRequest By Id",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseURL}}/blood-requests/8b68fe9e-eb6c-4128-968e-b73fed473ce3",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "blood-requests",
-                "8b68fe9e-eb6c-4128-968e-b73fed473ce3"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get My Blood-Requests",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseURL}}/blood-requests/my-requests",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "blood-requests",
-                "my-requests"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update BloodRequest by Id",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"hospitalName\": \"Combined Military Hospital\",\r\n  \"hospitalAddress\": \"Dhaka, Mirpur\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/blood-requests/c1655600-8fef-4bcc-baaf-56cb7741d605",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "blood-requests",
-                "c1655600-8fef-4bcc-baaf-56cb7741d605"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Soft Delete BloodRequest",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseURL}}/blood-requests/8b68fe9e-eb6c-4128-968e-b73fed473ce3",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "blood-requests",
-                "8b68fe9e-eb6c-4128-968e-b73fed473ce3"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "donorMatch",
-      "item": [
-        {
-          "name": "Find Compatible Donors",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseURL}}/donor-matches/compatible-donors?bloodGroup=B_NEGATIVE",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "donor-matches",
-                "compatible-donors"
-              ],
-              "query": [
-                {
-                  "key": "bloodGroup",
-                  "value": "B_NEGATIVE"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Request Status",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"status\":\"VERIFIED\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/blood-requests/2436a8f5-f3ce-43f1-9b07-702b0e343338/status",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "blood-requests",
-                "2436a8f5-f3ce-43f1-9b07-702b0e343338",
-                "status"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get My Donations - Donor",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseURL}}/donor-matches/my-donations",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "donor-matches",
-                "my-donations"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Donor Respond to Request",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"response\":\"ACCEPTED\" \r\n}\r\n//",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/blood-requests/2436a8f5-f3ce-43f1-9b07-702b0e343338/respond",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "blood-requests",
-                "2436a8f5-f3ce-43f1-9b07-702b0e343338",
-                "respond"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Assign Donor for blood-request",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"donorId\": \"5274a612-2625-46e1-b2ec-7e218a5c0825\",\r\n\t\"requestId\": \"2436a8f5-f3ce-43f1-9b07-702b0e343338\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/donor-matches/assign-donor",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "donor-matches",
-                "assign-donor"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "payment",
-      "item": [
-        {
-          "name": "initiate Payment",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"requestId\": \"2436a8f5-f3ce-43f1-9b07-702b0e343338\",\r\n  \"paymentType\": \"EMERGENCY_LOGISTICS\",\r\n  \"amount\": 300\r\n}\r\n\r\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/payments/initiate",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "payments",
-                "initiate"
-              ]
-            },
-            "description": "active customer wallets: 01770618575\n\nOTP: 123456\n\nPIN: 12121"
-          },
-          "response": []
-        },
-        {
-          "name": "Execute Payment",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"paymentID\": \"TR0011z5cUnGn1789800375893\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/payments/execute",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "payments",
-                "execute"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Payment Details by Id",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/payments/aa081669-774d-41cf-a49e-7d4f3cff1164",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "payments",
-                "aa081669-774d-41cf-a49e-7d4f3cff1164"
-              ]
-            },
-            "description": "**Params:**  - \\`id\\` — either the **DB payment UUID** or the **bKash \\`paymentID\\`**"
-          },
-          "response": []
-        },
-        {
-          "name": "Refund Emergency Logistics Payment",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"reason\": \"Courier failed to deliver the blood to the hospital\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/payments/refund/2436a8f5-f3ce-43f1-9b07-702b0e343338",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "payments",
-                "refund",
-                "2436a8f5-f3ce-43f1-9b07-702b0e343338"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get My Payments",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseURL}}/payments/mine",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "payments",
-                "mine"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "admin",
-      "item": [
-        {
-          "name": "Get All Users",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseURL}}/admin/users?sortBy=role",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "admin",
-                "users"
-              ],
-              "query": [
-                {
-                  "key": "searchTerm",
-                  "value": "forhad",
-                  "disabled": true
-                },
-                {
-                  "key": "district",
-                  "value": "Noakhali",
-                  "disabled": true
-                },
-                {
-                  "key": "bloodGroup",
-                  "value": "O_POSITIVE",
-                  "disabled": true
-                },
-                {
-                  "key": "role",
-                  "value": "DONOR",
-                  "disabled": true
-                },
-                {
-                  "key": "sortOrder",
-                  "value": "asc",
-                  "disabled": true
-                },
-                {
-                  "key": "sortBy",
-                  "value": "role"
-                },
-                {
-                  "key": "page",
-                  "value": "1",
-                  "disabled": true
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update User Role",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"status\": \"ACTIVE\"\r\n    // \"role\": \"PATIENT\",\r\n    // \"isDeleted\": false\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseURL}}/admin/users/5274a612-2625-46e1-b2ec-7e218a5c0825/role",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "admin",
-                "users",
-                "5274a612-2625-46e1-b2ec-7e218a5c0825",
-                "role"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Dashboard Stats",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseURL}}/admin/dashboard-stats",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "admin",
-                "dashboard-stats"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Audit Logs",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseURL}}/admin/audit-logs",
-              "host": [
-                "{{baseURL}}"
-              ],
-              "path": [
-                "admin",
-                "audit-logs"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ],
-  "variable": [
-    {
-      "key": "baseURL",
-      "value": "http://localhost:5000/api/v1",
-      "disabled": true
-    },
-    {
-      "key": "host",
-      "value": "http://localhost:5000"
-    },
-    {
-      "key": "baseURL",
-      "value": "https://hemacue-backend.vercel.app/api/v1"
-    }
-  ]
+	"info": {
+		"_postman_id": "54e9a032-2638-496d-957d-20ad25b1e9cf",
+		"name": "Hemacue Backend",
+		"description": "Hemacue Backend API collection (auto-synced with src/ routes).\n\n**Setup**\n- `baseURL` variable: switch between `http://localhost:5000/api/v1` (disabled variable) and `https://hemacue-backend.vercel.app/api/v1` (enabled).\n- Collection-level auth is `Bearer {{accessToken}}`. Requests that must be public are set to `noauth`.\n- Running any successful login / verify-email request automatically saves `accessToken` and `refreshToken` into the environment.\n\n**Roles:** DONOR, PATIENT, ADMIN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "53938729",
+		"_collection_link": "https://go.postman.co/collection/53938729-54e9a032-2638-496d-957d-20ad25b1e9cf?source=collection_link"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"item": [
+		{
+			"name": "Home",
+			"item": [
+				{
+					"name": "root",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hemacue-backend.vercel.app",
+							"protocol": "https",
+							"host": ["hemacue-backend", "vercel", "app"]
+						},
+						"description": "GET / — service welcome/health message (outside /api/v1)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"description": "Public authentication endpoints. All except logout are rate limited: 30 requests / 15 min / IP.",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Tareq boy\",\n  \"email\": \"boy.tareq244@gmail.com\",\n  \"password\": \"Password123!\",\n  \"role\": \"PATIENT\",\n  \"bloodGroup\": \"B_POSITIVE\",\n  \"phone\": \"+8801700000000\",\n  \"district\": \"Dhaka\",\n  \"city\": \"Dhaka North\",\n  \"address\": \"Banani, Block C\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/register",
+							"host": ["{{baseURL}}"],
+							"path": ["auth", "register"]
+						},
+						"description": "POST /auth/register — stores registration data + OTP in Redis and emails a 6-digit OTP. No user is created until verify-email. role defaults to DONOR."
+					},
+					"response": []
+				},
+				{
+					"name": "verify-email with OTP and email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const json = pm.response.json();",
+									"    pm.environment.set(\"accessToken\", json.data.accessToken);",
+									"    pm.environment.set(\"refreshToken\", json.data.refreshToken);",
+									"    pm.test(\"Email verified and tokens saved to environment\", function () {",
+									"        pm.expect(json.data).to.have.property(\"accessToken\");",
+									"        pm.expect(json).to.have.property(\"success\", true);",
+									"    });",
+									"} else {",
+									"    pm.test(\"Error response has standard structure\", function () {",
+									"        const json = pm.response.json();",
+									"        pm.expect(json).to.have.property(\"success\", false);",
+									"        pm.expect(json).to.have.property(\"errors\").that.is.an(\"array\");",
+									"    });",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"boy.tareq244@gmail.com\",\n  \"otp\": \"894965\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/verify-email",
+							"host": ["{{baseURL}}"],
+							"path": ["auth", "verify-email"]
+						},
+						"description": "POST /auth/verify-email — validates the 6-digit OTP, creates the user, returns user + accessToken + refreshToken (also set as httpOnly cookies)."
+					},
+					"response": []
+				},
+				{
+					"name": "resend-reg-OTP",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"boy.tareq244@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/verify-email/resend-otp",
+							"host": ["{{baseURL}}"],
+							"path": ["auth", "verify-email", "resend-otp"]
+						},
+						"description": "POST /auth/verify-email/resend-otp — regenerates and resends the registration OTP."
+					},
+					"response": []
+				},
+				{
+					"name": "login with email password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const json = pm.response.json();",
+									"    pm.environment.set(\"accessToken\", json.data.accessToken);",
+									"    pm.environment.set(\"refreshToken\", json.data.refreshToken);",
+									"    pm.test(\"Login succeeded and tokens saved to environment\", function () {",
+									"        pm.expect(json.data).to.have.property(\"accessToken\");",
+									"        pm.expect(json).to.have.property(\"message\", \"User logged in successfully\");",
+									"    });",
+									"} else {",
+									"    pm.test(\"Error response has standard structure\", function () {",
+									"        const json = pm.response.json();",
+									"        pm.expect(json).to.have.property(\"success\", false);",
+									"        pm.expect(json).to.have.property(\"errors\").that.is.an(\"array\");",
+									"    });",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"boy.tareq244@gmail.com\",\n  \"password\": \"Password123!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": ["{{baseURL}}"],
+							"path": ["auth", "login"]
+						},
+						"description": "POST /auth/login — returns { accessToken, refreshToken } only (no user object). Password must satisfy the complexity rules (upper/lower/number/special)."
+					},
+					"response": []
+				},
+				{
+					"name": "donor login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const json = pm.response.json();",
+									"    pm.environment.set(\"accessToken\", json.data.accessToken);",
+									"    pm.environment.set(\"refreshToken\", json.data.refreshToken);",
+									"    pm.test(\"Donor login succeeded and tokens saved\", function () {",
+									"        pm.expect(json.data).to.have.property(\"accessToken\");",
+									"    });",
+									"} else {",
+									"    pm.test(\"Error response has standard structure\", function () {",
+									"        const json = pm.response.json();",
+									"        pm.expect(json).to.have.property(\"success\", false);",
+									"        pm.expect(json).to.have.property(\"errors\").that.is.an(\"array\");",
+									"    });",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"donor-2@gmail.com\",\n  \"password\": \"Password123!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": ["{{baseURL}}"],
+							"path": ["auth", "login"]
+						},
+						"description": "POST /auth/login (DONOR account) — saves tokens for donor-only endpoints (my-donations, respond)."
+					},
+					"response": []
+				},
+				{
+					"name": "Admin login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const json = pm.response.json();",
+									"    pm.environment.set(\"accessToken\", json.data.accessToken);",
+									"    pm.environment.set(\"refreshToken\", json.data.refreshToken);",
+									"    pm.test(\"Admin login succeeded and tokens saved\", function () {",
+									"        pm.expect(json.data).to.have.property(\"accessToken\");",
+									"    });",
+									"} else {",
+									"    pm.test(\"Error response has standard structure\", function () {",
+									"        const json = pm.response.json();",
+									"        pm.expect(json).to.have.property(\"success\", false);",
+									"        pm.expect(json).to.have.property(\"errors\").that.is.an(\"array\");",
+									"    });",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"testeradmin@gmail.com\",\n  \"password\": \"Tester@admin12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": ["{{baseURL}}"],
+							"path": ["auth", "login"]
+						},
+						"description": "POST /auth/login (ADMIN account) — saves tokens for /admin endpoints, refunds, status verification."
+					},
+					"response": []
+				},
+				{
+					"name": "google-login-with-idToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const json = pm.response.json();",
+									"    pm.environment.set(\"accessToken\", json.data.accessToken);",
+									"    pm.environment.set(\"refreshToken\", json.data.refreshToken);",
+									"    pm.test(\"Google login succeeded and tokens saved\", function () {",
+									"        pm.expect(json.data).to.have.property(\"accessToken\");",
+									"    });",
+									"} else {",
+									"    pm.test(\"Response has expected error structure\", function () {",
+									"        const json = pm.response.json();",
+									"        pm.expect(json).to.have.property(\"success\", false);",
+									"        pm.expect(json).to.have.property(\"errors\").that.is.an(\"array\");",
+									"    });",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idToken\": \"REPLACE_WITH_GOOGLE_ID_TOKEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/google-login",
+							"host": ["{{baseURL}}"],
+							"path": ["auth", "google-login"]
+						},
+						"description": "POST /auth/google-login — body: { idToken }. Verify a fresh Google ID token (audience = GOOGLE_CLIENT_ID). Expired/invalid tokens return 401 \"Invalid or expired Google ID Token\"."
+					},
+					"response": []
+				},
+				{
+					"name": "generate Access Token using Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const json = pm.response.json();",
+									"    pm.environment.set(\"accessToken\", json.data.accessToken);",
+									"    pm.environment.set(\"refreshToken\", json.data.refreshToken);",
+									"    pm.test(\"Tokens rotated and saved to environment\", function () {",
+									"        pm.expect(json.data).to.have.property(\"accessToken\");",
+									"        pm.expect(json.data).to.have.property(\"refreshToken\");",
+									"    });",
+									"} else {",
+									"    pm.test(\"Error response has standard structure\", function () {",
+									"        const json = pm.response.json();",
+									"        pm.expect(json).to.have.property(\"success\", false);",
+									"        pm.expect(json.errors).to.be.an(\"array\");",
+									"    });",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/refresh-token",
+							"host": ["{{baseURL}}"],
+							"path": ["auth", "refresh-token"]
+						},
+						"description": "POST /auth/refresh-token — reads refreshToken from the cookie first, then from this body. Rotates BOTH accessToken and refreshToken (returns + sets them as cookies)."
+					},
+					"response": []
+				},
+				{
+					"name": "forgot password",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"boy.tareq244@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/forgot-password",
+							"host": ["{{baseURL}}"],
+							"path": ["auth", "forgot-password"]
+						},
+						"description": "POST /auth/forgot-password — sends a 6-digit reset OTP (5 min in Redis). Call the same endpoint again to resend."
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"boy.tareq244@gmail.com\",\n  \"otp\": \"885953\",\n  \"newPassword\": \"Password123!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/reset-password",
+							"host": ["{{baseURL}}"],
+							"path": ["auth", "reset-password"]
+						},
+						"description": "POST /auth/reset-password — body: email + otp (6 digits) + newPassword (complexity rules apply)."
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/auth/logout",
+							"host": ["{{baseURL}}"],
+							"path": ["auth", "logout"]
+						},
+						"description": "POST /auth/logout — no token required. Clears accessToken & refreshToken httpOnly cookies."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"description": "Profile endpoints — require DONOR, PATIENT or ADMIN.",
+			"item": [
+				{
+					"name": "Get Profile of Logged-in User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/me",
+							"host": ["{{baseURL}}"],
+							"path": ["users", "me"]
+						},
+						"description": "GET /users/me — returns the profile plus totalBloodRequests and totalCompletedDonations counters."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile of Logged-in User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"district\": \"Noakhali\",\n  \"city\": \"Noakhali\",\n  \"address\": \"Subornachar\",\n  \"latitude\": 22.6833,\n  \"longitude\": 91.11\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/me",
+							"host": ["{{baseURL}}"],
+							"path": ["users", "me"]
+						},
+						"description": "PATCH /users/me — all fields optional: name, phone, district, city, address, latitude, longitude, isAvailable, lastDonatedAt, bloodGroup."
+					},
+					"response": []
+				},
+				{
+					"name": "Upload avatar",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/me/avatar",
+							"host": ["{{baseURL}}"],
+							"path": ["users", "me", "avatar"]
+						},
+						"description": "PATCH /users/me/avatar — multipart/form-data with a single file field named `avatar` (Cloudinary upload)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bloodRequest",
+			"description": "Blood request CRUD. Create/update/delete and my-requests require PATIENT or ADMIN; list/by-id are public.",
+			"item": [
+				{
+					"name": "create BloodRequest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"patientName\": \"Amin\",\n  \"patientAge\": 40,\n  \"bloodGroup\": \"B_NEGATIVE\",\n  \"unitsRequired\": 1,\n  \"hospitalName\": \"Apollo Hospital\",\n  \"hospitalAddress\": \"Dhaka, Shahbag\",\n  \"district\": \"Dhaka\",\n  \"city\": \"Dhaka\",\n  \"urgency\": \"EMERGENCY\",\n  \"neededBy\": \"2026-10-01T12:00:00.000Z\",\n  \"notes\": \"urgent\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/blood-requests",
+							"host": ["{{baseURL}}"],
+							"path": ["blood-requests"]
+						},
+						"description": "POST /blood-requests — Auth: PATIENT | ADMIN. Required: patientName, patientAge (1-120), bloodGroup, hospitalName, hospitalAddress, district, city, neededBy (ISO). Optional: unitsRequired (default 1), latitude, longitude, urgency (default NORMAL), notes."
+					},
+					"response": []
+				},
+				{
+					"name": "get All BloodRequests",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/blood-requests",
+							"host": ["{{baseURL}}"],
+							"path": ["blood-requests"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt",
+									"disabled": true
+								},
+								{
+									"key": "sortOrder",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "bloodGroup",
+									"value": "B_NEGATIVE",
+									"disabled": true
+								},
+								{
+									"key": "bloodGroups",
+									"value": "B_NEGATIVE,O_NEGATIVE",
+									"disabled": true
+								},
+								{
+									"key": "neededFrom",
+									"value": "2026-10-01T00:00:00.000Z",
+									"disabled": true
+								},
+								{
+									"key": "district",
+									"value": "Dhaka",
+									"disabled": true
+								},
+								{
+									"key": "urgency",
+									"value": "EMERGENCY",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "DONOR_ASSIGNED",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "Apollo",
+									"disabled": true
+								}
+							]
+						},
+						"description": "GET /blood-requests — Public paginated feed. sortBy: createdAt|updatedAt|neededBy|patientName|bloodGroup|urgency. bloodGroups accepts a comma-separated list of compatible groups."
+					},
+					"response": []
+				},
+				{
+					"name": "Get BloodRequest By Id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/blood-requests/8b68fe9e-eb6c-4128-968e-b73fed473ce3",
+							"host": ["{{baseURL}}"],
+							"path": ["blood-requests", "8b68fe9e-eb6c-4128-968e-b73fed473ce3"]
+						},
+						"description": "GET /blood-requests/:id — Public. Includes requester and assignments (with donor summaries). 404 if not found or soft-deleted."
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Blood-Requests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/blood-requests/my-requests",
+							"host": ["{{baseURL}}"],
+							"path": ["blood-requests", "my-requests"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt",
+									"disabled": true
+								},
+								{
+									"key": "sortOrder",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "PENDING",
+									"disabled": true
+								}
+							]
+						},
+						"description": "GET /blood-requests/my-requests — Auth: PATIENT | ADMIN. Same filters as the public list, scoped to the current user."
+					},
+					"response": []
+				},
+				{
+					"name": "Update BloodRequest by Id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"hospitalName\": \"Combined Military Hospital\",\n  \"hospitalAddress\": \"Dhaka, Mirpur\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/blood-requests/c1655600-8fef-4bcc-baaf-56cb7741d605",
+							"host": ["{{baseURL}}"],
+							"path": ["blood-requests", "c1655600-8fef-4bcc-baaf-56cb7741d605"]
+						},
+						"description": "PATCH /blood-requests/:id — Auth: PATIENT | ADMIN (owner or admin). All fields optional (same schema as create)."
+					},
+					"response": []
+				},
+				{
+					"name": "Soft Delete BloodRequest",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/blood-requests/8b68fe9e-eb6c-4128-968e-b73fed473ce3",
+							"host": ["{{baseURL}}"],
+							"path": ["blood-requests", "8b68fe9e-eb6c-4128-968e-b73fed473ce3"]
+						},
+						"description": "DELETE /blood-requests/:id — Auth: PATIENT | ADMIN (owner or admin). Sets isDeleted = true. Returns data: null."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "donorMatch",
+			"description": "Donor matching & request workflow. compatible-donors / assign-donor / status need PATIENT|ADMIN (VERIFIED only for assign); my-donations & respond need DONOR.",
+			"item": [
+				{
+					"name": "Find Compatible Donors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/donor-matches/compatible-donors?bloodGroup=B_NEGATIVE",
+							"host": ["{{baseURL}}"],
+							"path": ["donor-matches", "compatible-donors"],
+							"query": [
+								{
+									"key": "bloodGroup",
+									"value": "B_NEGATIVE"
+								},
+								{
+									"key": "district",
+									"value": "Dhaka",
+									"disabled": true
+								},
+								{
+									"key": "requestId",
+									"value": "2436a8f5-f3ce-43f1-9b07-702b0e343338",
+									"disabled": true
+								}
+							]
+						},
+						"description": "GET /donor-matches/compatible-donors — Auth: PATIENT | ADMIN. bloodGroup required (recipient group); district and requestId optional. Not paginated. Applies compatibility matrix + 90-day cooldown + availability."
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Donor for blood-request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"donorId\": \"5274a612-2625-46e1-b2ec-7e218a5c0825\",\n  \"requestId\": \"2436a8f5-f3ce-43f1-9b07-702b0e343338\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/donor-matches/assign-donor",
+							"host": ["{{baseURL}}"],
+							"path": ["donor-matches", "assign-donor"]
+						},
+						"description": "POST /donor-matches/assign-donor — Auth: PATIENT | ADMIN. Both ids must be UUIDs. Blood request must be status VERIFIED (otherwise 400). Creates assignment with status NOTIFIED → 201."
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Donations - Donor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/donor-matches/my-donations",
+							"host": ["{{baseURL}}"],
+							"path": ["donor-matches", "my-donations"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "6",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "assignedAt",
+									"disabled": true
+								},
+								{
+									"key": "sortOrder",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "ACCEPTED",
+									"disabled": true
+								},
+								{
+									"key": "urgency",
+									"value": "EMERGENCY",
+									"disabled": true
+								},
+								{
+									"key": "bloodGroup",
+									"value": "B_NEGATIVE",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "Apollo",
+									"disabled": true
+								}
+							]
+						},
+						"description": "GET /donor-matches/my-donations — Auth: DONOR only. Default limit 6; sortBy: assignedAt|neededBy."
+					},
+					"response": []
+				},
+				{
+					"name": "Donor Respond to Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"response\": \"ACCEPTED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/blood-requests/2436a8f5-f3ce-43f1-9b07-702b0e343338/respond",
+							"host": ["{{baseURL}}"],
+							"path": [
+								"blood-requests",
+								"2436a8f5-f3ce-43f1-9b07-702b0e343338",
+								"respond"
+							]
+						},
+						"description": "POST /blood-requests/:id/respond — Auth: DONOR only. Body field is `response` (NOT `status`): ACCEPTED | DECLINED. On accept the request becomes DONOR_ASSIGNED and other notified donors are cancelled."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Request Status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"VERIFIED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/blood-requests/2436a8f5-f3ce-43f1-9b07-702b0e343338/status",
+							"host": ["{{baseURL}}"],
+							"path": [
+								"blood-requests",
+								"2436a8f5-f3ce-43f1-9b07-702b0e343338",
+								"status"
+							]
+						},
+						"description": "PATCH /blood-requests/:id/status — Auth: PATIENT | ADMIN (owner or admin). status enum: VERIFIED | IN_PROGRESS | COMPLETED | CANCELLED. Only ADMIN can set VERIFIED. Illegal transitions return 400."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "payment",
+			"description": "bKash Tokenized Checkout. initiate/execute are rate limited (30 req / 15 min / IP). refund is ADMIN only.",
+			"item": [
+				{
+					"name": "initiate Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"requestId\": \"2436a8f5-f3ce-43f1-9b07-702b0e343338\",\n  \"paymentType\": \"EMERGENCY_LOGISTICS\",\n  \"amount\": 300\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/payments/initiate",
+							"host": ["{{baseURL}}"],
+							"path": ["payments", "initiate"]
+						},
+						"description": "POST /payments/initiate — Auth: PATIENT | ADMIN (owner of the request). Body: requestId (UUID), paymentType (PREMIUM_NOTIFICATION | EMERGENCY_LOGISTICS), amount (> 0).\n\nResponse data: paymentID, bkashURL, payment{ id, status: INITIALIZED, ... }.\n\nSandbox tester wallet: 01770618575 — OTP: 123456 — PIN: 12121"
+					},
+					"response": []
+				},
+				{
+					"name": "Execute Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"paymentID\": \"TR0011z5cUnGn1789800375893\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/payments/execute",
+							"host": ["{{baseURL}}"],
+							"path": ["payments", "execute"]
+						},
+						"description": "POST /payments/execute — Auth: PATIENT | ADMIN. Body: paymentID (from initiate / bKash callback URL). Marks payment COMPLETED, sets the request add-on flag, writes audit log, generates + emails the PDF invoice."
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Payments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/payments/mine",
+							"host": ["{{baseURL}}"],
+							"path": ["payments", "mine"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt",
+									"disabled": true
+								},
+								{
+									"key": "sortOrder",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "COMPLETED",
+									"disabled": true
+								},
+								{
+									"key": "paymentType",
+									"value": "EMERGENCY_LOGISTICS",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "TR0011",
+									"disabled": true
+								}
+							]
+						},
+						"description": "GET /payments/mine — Auth: PATIENT | ADMIN. Paginated; status: INITIALIZED|COMPLETED|FAILED|CANCELLED; sortBy: createdAt|amount."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payment Details by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/payments/aa081669-774d-41cf-a49e-7d4f3cff1164",
+							"host": ["{{baseURL}}"],
+							"path": ["payments", "aa081669-774d-41cf-a49e-7d4f3cff1164"]
+						},
+						"description": "GET /payments/:id — Auth: PATIENT | ADMIN (owner, admins can read any).\n\nParams: `id` — either the **DB payment UUID** or the **bKash `paymentID`**."
+					},
+					"response": []
+				},
+				{
+					"name": "Refund Emergency Logistics Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"reason\": \"Courier failed to deliver the blood to the hospital\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/payments/refund/2436a8f5-f3ce-43f1-9b07-702b0e343338",
+							"host": ["{{baseURL}}"],
+							"path": [
+								"payments",
+								"refund",
+								"2436a8f5-f3ce-43f1-9b07-702b0e343338"
+							]
+						},
+						"description": "POST /payments/refund/:requestId — Auth: ADMIN only. Body: reason (required). Refunds the latest COMPLETED EMERGENCY_LOGISTICS payment for the request via bKash; payment status becomes CANCELLED with refundTrxId/refundAmount/refundedAt."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"description": "Admin-only endpoints — require ADMIN role.",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/admin/users?sortBy=role",
+							"host": ["{{baseURL}}"],
+							"path": ["admin", "users"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "role"
+								},
+								{
+									"key": "sortOrder",
+									"value": "asc",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "DONOR",
+									"disabled": true
+								},
+								{
+									"key": "bloodGroup",
+									"value": "O_POSITIVE",
+									"disabled": true
+								},
+								{
+									"key": "district",
+									"value": "Noakhali",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "forhad",
+									"disabled": true
+								}
+							]
+						},
+						"description": "GET /admin/users — Auth: ADMIN. sortBy: name|email|role|createdAt. Returns users (no password) with _count{ bloodRequests, donorAssignments, payments }."
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Payments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/admin/payments",
+							"host": ["{{baseURL}}"],
+							"path": ["admin", "payments"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt",
+									"disabled": true
+								},
+								{
+									"key": "sortOrder",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "COMPLETED",
+									"disabled": true
+								},
+								{
+									"key": "paymentType",
+									"value": "EMERGENCY_LOGISTICS",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "TR0011",
+									"disabled": true
+								}
+							]
+						},
+						"description": "GET /admin/payments — Auth: ADMIN. Platform-wide payments incl. payer + request summaries. searchTerm matches paymentID, trxID or payer email."
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Role",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"ACTIVE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/admin/users/5274a612-2625-46e1-b2ec-7e218a5c0825/role",
+							"host": ["{{baseURL}}"],
+							"path": [
+								"admin",
+								"users",
+								"5274a612-2625-46e1-b2ec-7e218a5c0825",
+								"role"
+							]
+						},
+						"description": "PATCH /admin/users/:id/role — Auth: ADMIN. Body (all optional, send at least one): role (DONOR|PATIENT|ADMIN), status (ACTIVE|BLOCKED|DELETED), isDeleted (boolean). Cannot target yourself (400); no-op updates return 400."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Dashboard Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/admin/dashboard-stats",
+							"host": ["{{baseURL}}"],
+							"path": ["admin", "dashboard-stats"]
+						},
+						"description": "GET /admin/dashboard-stats — Auth: ADMIN. Returns totalUsers, usersByRole, totalBloodRequests, bloodRequestsByStatus, totalCompletedDonations and payments{ totalCompletedPayments, totalRevenue, currency }."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Audit Logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/admin/audit-logs",
+							"host": ["{{baseURL}}"],
+							"path": ["admin", "audit-logs"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "sortOrder",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "action",
+									"value": "STATUS_CHANGE",
+									"disabled": true
+								},
+								{
+									"key": "entity",
+									"value": "BloodRequest",
+									"disabled": true
+								},
+								{
+									"key": "actorEmail",
+									"value": "testeradmin@gmail.com",
+									"disabled": true
+								}
+							]
+						},
+						"description": "GET /admin/audit-logs — Auth: ADMIN. Filters: action (exact), entity (exact), actorEmail (contains, insensitive). Each row includes the acting user summary."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:5000/api/v1",
+			"disabled": true
+		},
+		{
+			"key": "baseURL",
+			"value": "https://hemacue-backend.vercel.app/api/v1"
+		},
+		{
+			"key": "accessToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "refreshToken",
+			"value": "",
+			"type": "string"
+		}
+	]
 }
