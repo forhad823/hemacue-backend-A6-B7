@@ -11,42 +11,42 @@
 
 ## ⚡ At a Glance: Implemented APIs Summary
 
-| Module            | Method   | Endpoint                                     | Access / Auth         | Description                                                       |
-| :---------------- | :------- | :------------------------------------------- | :-------------------- | :---------------------------------------------------------------- |
-| **System**        | `GET`    | `/`                                          | Public                | Service health / welcome message (outside `/api/v1`)              |
-| **Auth**          | `POST`   | `/api/v1/auth/register`                      | Public                | Register new account & email a 6-digit OTP                        |
-| **Auth**          | `POST`   | `/api/v1/auth/verify-email`                  | Public                | Verify OTP, create user, issue JWT tokens (body + cookies)        |
-| **Auth**          | `POST`   | `/api/v1/auth/verify-email/resend-otp`       | Public                | Resend registration verification OTP                              |
-| **Auth**          | `POST`   | `/api/v1/auth/login`                         | Public                | Login with email & password (body + cookies)                      |
-| **Auth**          | `POST`   | `/api/v1/auth/refresh-token`                 | Public (Cookie/Body)  | Rotate both access & refresh tokens                               |
-| **Auth**          | `POST`   | `/api/v1/auth/google-login`                  | Public                | Sign in via Google OAuth ID Token                                 |
-| **Auth**          | `POST`   | `/api/v1/auth/forgot-password`               | Public                | Send password reset OTP (also used to resend)                     |
-| **Auth**          | `POST`   | `/api/v1/auth/reset-password`                | Public                | Reset password using OTP                                          |
-| **Auth**          | `POST`   | `/api/v1/auth/logout`                        | Public                | Clear auth cookies                                                |
-| **User**          | `GET`    | `/api/v1/users/me`                           | DONOR, PATIENT, ADMIN | Get current user profile details                                  |
-| **User**          | `PATCH`  | `/api/v1/users/me`                           | DONOR, PATIENT, ADMIN | Update own profile & availability                                 |
-| **User**          | `PATCH`  | `/api/v1/users/me/avatar`                    | DONOR, PATIENT, ADMIN | Upload profile avatar image to Cloudinary                         |
-| **Blood Request** | `POST`   | `/api/v1/blood-requests`                     | PATIENT, ADMIN        | Create new blood donation request                                 |
-| **Blood Request** | `GET`    | `/api/v1/blood-requests`                     | Public                | List & search requests with filters & pagination                  |
-| **Blood Request** | `GET`    | `/api/v1/blood-requests/my-requests`         | PATIENT, ADMIN        | Fetch requests created by the logged in user                      |
-| **Blood Request** | `GET`    | `/api/v1/blood-requests/:id`                 | Public                | Fetch request detail incl. requester & assignments                |
-| **Blood Request** | `PATCH`  | `/api/v1/blood-requests/:id`                 | PATIENT, ADMIN        | Update blood request details (owner or admin)                     |
-| **Blood Request** | `DELETE` | `/api/v1/blood-requests/:id`                 | PATIENT, ADMIN        | Soft delete a blood request (owner or admin)                      |
-| **Donor Match**   | `GET`    | `/api/v1/donor-matches/compatible-donors`    | PATIENT, ADMIN        | Find eligible donors (compatibility matrix + 90-day cooldown)     |
-| **Donor Match**   | `POST`   | `/api/v1/donor-matches/assign-donor`         | PATIENT, ADMIN        | Manually assign a donor to a **VERIFIED** request                 |
-| **Donor Match**   | `GET`    | `/api/v1/donor-matches/my-donations`         | DONOR                 | Donor's assignment / donation history                             |
-| **Donor Match**   | `POST`   | `/api/v1/blood-requests/:id/respond`         | DONOR                 | Donor `ACCEPTED` / `DECLINED` response to an assignment           |
-| **Donor Match**   | `PATCH`  | `/api/v1/blood-requests/:id/status`          | PATIENT, ADMIN        | Advance request status through guarded state machine              |
-| **Payment**       | `POST`   | `/api/v1/payments/initiate`                  | PATIENT, ADMIN        | Initiate bKash Tokenized Checkout payment                         |
-| **Payment**       | `POST`   | `/api/v1/payments/execute`                   | PATIENT, ADMIN        | Execute bKash payment, generate PDF & email invoice               |
-| **Payment**       | `POST`   | `/api/v1/payments/refund/:requestId`         | ADMIN                 | Refund emergency logistics payment                                |
-| **Payment**       | `GET`    | `/api/v1/payments/mine`                      | PATIENT, ADMIN        | List the user's payment transaction history                       |
-| **Payment**       | `GET`    | `/api/v1/payments/:id`                       | PATIENT, ADMIN        | Payment detail by DB id **or** bKash `paymentID`                  |
-| **Admin**         | `GET`    | `/api/v1/admin/users`                        | ADMIN                 | List & search all platform users                                  |
-| **Admin**         | `GET`    | `/api/v1/admin/payments`                     | ADMIN                 | List & search all platform payments                               |
-| **Admin**         | `PATCH`  | `/api/v1/admin/users/:id/role`               | ADMIN                 | Change user role / status / soft-delete flag                      |
-| **Admin**         | `GET`    | `/api/v1/admin/dashboard-stats`              | ADMIN                 | Platform aggregate stats & revenue analytics                      |
-| **Admin**         | `GET`    | `/api/v1/admin/audit-logs`                   | ADMIN                 | Search audit logs & action trails                                 |
+| Module            | Method   | Endpoint                                  | Access / Auth         | Description                                                   |
+| :---------------- | :------- | :---------------------------------------- | :-------------------- | :------------------------------------------------------------ |
+| **System**        | `GET`    | `/`                                       | Public                | Service health / welcome message (outside `/api/v1`)          |
+| **Auth**          | `POST`   | `/api/v1/auth/register`                   | Public                | Register new account & email a 6-digit OTP                    |
+| **Auth**          | `POST`   | `/api/v1/auth/verify-email`               | Public                | Verify OTP, create user, issue JWT tokens (body + cookies)    |
+| **Auth**          | `POST`   | `/api/v1/auth/verify-email/resend-otp`    | Public                | Resend registration verification OTP                          |
+| **Auth**          | `POST`   | `/api/v1/auth/login`                      | Public                | Login with email & password (body + cookies)                  |
+| **Auth**          | `POST`   | `/api/v1/auth/refresh-token`              | Public (Cookie/Body)  | Rotate both access & refresh tokens                           |
+| **Auth**          | `POST`   | `/api/v1/auth/google-login`               | Public                | Sign in via Google OAuth ID Token                             |
+| **Auth**          | `POST`   | `/api/v1/auth/forgot-password`            | Public                | Send password reset OTP (also used to resend)                 |
+| **Auth**          | `POST`   | `/api/v1/auth/reset-password`             | Public                | Reset password using OTP                                      |
+| **Auth**          | `POST`   | `/api/v1/auth/logout`                     | Public                | Clear auth cookies                                            |
+| **User**          | `GET`    | `/api/v1/users/me`                        | DONOR, PATIENT, ADMIN | Get current user profile details                              |
+| **User**          | `PATCH`  | `/api/v1/users/me`                        | DONOR, PATIENT, ADMIN | Update own profile & availability                             |
+| **User**          | `PATCH`  | `/api/v1/users/me/avatar`                 | DONOR, PATIENT, ADMIN | Upload profile avatar image to Cloudinary                     |
+| **Blood Request** | `POST`   | `/api/v1/blood-requests`                  | PATIENT, ADMIN        | Create new blood donation request                             |
+| **Blood Request** | `GET`    | `/api/v1/blood-requests`                  | Public                | List & search requests with filters & pagination              |
+| **Blood Request** | `GET`    | `/api/v1/blood-requests/my-requests`      | PATIENT, ADMIN        | Fetch requests created by the logged in user                  |
+| **Blood Request** | `GET`    | `/api/v1/blood-requests/:id`              | Public                | Fetch request detail incl. requester & assignments            |
+| **Blood Request** | `PATCH`  | `/api/v1/blood-requests/:id`              | PATIENT, ADMIN        | Update blood request details (owner or admin)                 |
+| **Blood Request** | `DELETE` | `/api/v1/blood-requests/:id`              | PATIENT, ADMIN        | Soft delete a blood request (owner or admin)                  |
+| **Donor Match**   | `GET`    | `/api/v1/donor-matches/compatible-donors` | PATIENT, ADMIN        | Find eligible donors (compatibility matrix + 90-day cooldown) |
+| **Donor Match**   | `POST`   | `/api/v1/donor-matches/assign-donor`      | PATIENT, ADMIN        | Manually assign a donor to a **VERIFIED** request             |
+| **Donor Match**   | `GET`    | `/api/v1/donor-matches/my-donations`      | DONOR                 | Donor's assignment / donation history                         |
+| **Donor Match**   | `POST`   | `/api/v1/blood-requests/:id/respond`      | DONOR                 | Donor `ACCEPTED` / `DECLINED` response to an assignment       |
+| **Donor Match**   | `PATCH`  | `/api/v1/blood-requests/:id/status`       | PATIENT, ADMIN        | Advance request status through guarded state machine          |
+| **Payment**       | `POST`   | `/api/v1/payments/initiate`               | PATIENT, ADMIN        | Initiate bKash Tokenized Checkout payment                     |
+| **Payment**       | `POST`   | `/api/v1/payments/execute`                | PATIENT, ADMIN        | Execute bKash payment, generate PDF & email invoice           |
+| **Payment**       | `POST`   | `/api/v1/payments/refund/:requestId`      | ADMIN                 | Refund emergency logistics payment                            |
+| **Payment**       | `GET`    | `/api/v1/payments/mine`                   | PATIENT, ADMIN        | List the user's payment transaction history                   |
+| **Payment**       | `GET`    | `/api/v1/payments/:id`                    | PATIENT, ADMIN        | Payment detail by DB id **or** bKash `paymentID`              |
+| **Admin**         | `GET`    | `/api/v1/admin/users`                     | ADMIN                 | List & search all platform users                              |
+| **Admin**         | `GET`    | `/api/v1/admin/payments`                  | ADMIN                 | List & search all platform payments                           |
+| **Admin**         | `PATCH`  | `/api/v1/admin/users/:id/role`            | ADMIN                 | Change user role / status / soft-delete flag                  |
+| **Admin**         | `GET`    | `/api/v1/admin/dashboard-stats`           | ADMIN                 | Platform aggregate stats & revenue analytics                  |
+| **Admin**         | `GET`    | `/api/v1/admin/audit-logs`                | ADMIN                 | Search audit logs & action trails                             |
 
 ---
 
@@ -140,25 +140,25 @@ and by the rate limiter:
 
 ### 1.4 HTTP Status Codes Used
 
-| Code | Meaning in this API                                                 |
-| :--- | :------------------------------------------------------------------ |
+| Code  | Meaning in this API                                                |
+| :---- | :----------------------------------------------------------------- |
 | `200` | OK — read, update, login, verify, execute, refund, respond, status |
-| `201` | Created — register, create blood request, assign donor, initiate    |
-| `400` | Bad request — Zod validation, invalid state transition, business    |
-| `401` | Unauthenticated — missing/invalid token, wrong credentials          |
-| `403` | Forbidden — role mismatch, deleted/blocked account, ownership       |
-| `404` | Not found — unknown route or entity                                 |
-| `409` | Conflict — already verified email, assignment already responded     |
-| `429` | Too many requests — rate limiter hit                                |
-| `500` | Unexpected server error                                             |
-| `502` | bKash gateway failure (create/execute/refund)                       |
+| `201` | Created — register, create blood request, assign donor, initiate   |
+| `400` | Bad request — Zod validation, invalid state transition, business   |
+| `401` | Unauthenticated — missing/invalid token, wrong credentials         |
+| `403` | Forbidden — role mismatch, deleted/blocked account, ownership      |
+| `404` | Not found — unknown route or entity                                |
+| `409` | Conflict — already verified email, assignment already responded    |
+| `429` | Too many requests — rate limiter hit                               |
+| `500` | Unexpected server error                                            |
+| `502` | bKash gateway failure (create/execute/refund)                      |
 
 ### 1.5 Rate Limiting (Redis)
 
-| Limiter                | Limit                         | Applied to                                              |
-| :--------------------- | :---------------------------- | :------------------------------------------------------ |
-| `globalRateLimiter`    | **100 req / 15 min / IP**     | Every request (mounted globally in `app.ts`)            |
-| `authPaymentRateLimiter` | **30 req / 15 min / IP**     | All `/auth` POSTs except `logout`, plus `/payments/initiate` and `/payments/execute` |
+| Limiter                  | Limit                     | Applied to                                                                           |
+| :----------------------- | :------------------------ | :----------------------------------------------------------------------------------- |
+| `globalRateLimiter`      | **100 req / 15 min / IP** | Every request (mounted globally in `app.ts`)                                         |
+| `authPaymentRateLimiter` | **30 req / 15 min / IP**  | All `/auth` POSTs except `logout`, plus `/payments/initiate` and `/payments/execute` |
 
 If Redis fails, the limiter fails open (requests are allowed through).
 
@@ -166,13 +166,13 @@ If Redis fails, the limiter fails open (requests are allowed through).
 
 List endpoints accept (defaults in parentheses):
 
-| Param       | Type / Constraints                        | Default       |
-| :---------- | :---------------------------------------- | :------------ |
-| `page`      | integer, min `1`                          | `1`           |
-| `limit`     | integer, min `1`, max `100`               | `10` (`6` for `my-donations`) |
-| `sortOrder` | `asc` \| `desc`                           | `desc`        |
-| `sortBy`    | endpoint-specific enum (see each endpoint) | endpoint-specific |
-| `searchTerm`| trimmed string (case-insensitive contains)| none          |
+| Param        | Type / Constraints                         | Default                       |
+| :----------- | :----------------------------------------- | :---------------------------- |
+| `page`       | integer, min `1`                           | `1`                           |
+| `limit`      | integer, min `1`, max `100`                | `10` (`6` for `my-donations`) |
+| `sortOrder`  | `asc` \| `desc`                            | `desc`                        |
+| `sortBy`     | endpoint-specific enum (see each endpoint) | endpoint-specific             |
+| `searchTerm` | trimmed string (case-insensitive contains) | none                          |
 
 ---
 
@@ -192,10 +192,10 @@ Authorization: Bearer <accessToken>
 
 Set (httpOnly) on `verify-email`, `login`, `refresh-token`, `google-login`; cleared on `logout`:
 
-| Cookie         | Max Age  | Attributes                                              |
-| :------------- | :------- | :------------------------------------------------------ |
-| `accessToken`  | 1 day    | `httpOnly`; `secure` in production, `sameSite: none` (`lax` in dev) |
-| `refreshToken` | 7 days   | same as above                                           |
+| Cookie         | Max Age | Attributes                                                          |
+| :------------- | :------ | :------------------------------------------------------------------ |
+| `accessToken`  | 1 day   | `httpOnly`; `secure` in production, `sameSite: none` (`lax` in dev) |
+| `refreshToken` | 7 days  | same as above                                                       |
 
 ### 2.3 JWT Payload
 
@@ -213,12 +213,12 @@ Set (httpOnly) on `verify-email`, `login`, `refresh-token`, `google-login`; clea
 
 Roles: `DONOR`, `PATIENT`, `ADMIN`
 
-| Role      | Capabilities                                                                                     |
-| :-------- | :----------------------------------------------------------------------------------------------- |
-| `PATIENT` | Create/update/delete own blood requests, assign donors, advance status, initiate/execute payments, view own payments |
-| `DONOR`   | Respond to assignments (`ACCEPTED`/`DECLINED`), view own donation history, manage own profile     |
+| Role      | Capabilities                                                                                                              |
+| :-------- | :------------------------------------------------------------------------------------------------------------------------ |
+| `PATIENT` | Create/update/delete own blood requests, assign donors, advance status, initiate/execute payments, view own payments      |
+| `DONOR`   | Respond to assignments (`ACCEPTED`/`DECLINED`), view own donation history, manage own profile                             |
 | `ADMIN`   | Everything above + verify requests, all users/payments lists, role & status changes, refunds, dashboard stats, audit logs |
-| any auth  | View/update own profile, upload avatar                                                            |
+| any auth  | View/update own profile, upload avatar                                                                                    |
 
 Common auth errors:
 
@@ -264,17 +264,17 @@ except `POST /auth/logout`, which has no rate limiter.
 
 #### Validation Rules
 
-| Field       | Rules                                                             |
-| :---------- | :---------------------------------------------------------------- |
-| `name`      | string, required, min 2 chars                                     |
-| `email`     | valid email, required                                             |
-| `password`  | min 6 chars + ≥1 lowercase, ≥1 uppercase, ≥1 number, ≥1 special   |
-| `role`      | `DONOR` \| `PATIENT`, **default `DONOR`** (`ADMIN` not allowed)   |
-| `bloodGroup`| enum `BloodGroup`, required                                       |
-| `phone`     | non-empty string, required                                        |
-| `district`  | non-empty string, required                                        |
-| `city`      | non-empty string, required                                        |
-| `address`   | string, optional                                                  |
+| Field        | Rules                                                           |
+| :----------- | :-------------------------------------------------------------- |
+| `name`       | string, required, min 2 chars                                   |
+| `email`      | valid email, required                                           |
+| `password`   | min 6 chars + ≥1 lowercase, ≥1 uppercase, ≥1 number, ≥1 special |
+| `role`       | `DONOR` \| `PATIENT`, **default `DONOR`** (`ADMIN` not allowed) |
+| `bloodGroup` | enum `BloodGroup`, required                                     |
+| `phone`      | non-empty string, required                                      |
+| `district`   | non-empty string, required                                      |
+| `city`       | non-empty string, required                                      |
+| `address`    | string, optional                                                |
 
 #### Success Response (`201 Created`)
 
@@ -633,18 +633,18 @@ Errors: `404 "User profile not found"`, `403 "User profile is blocked"`.
 
 #### Validation Rules
 
-| Field          | Rules                                              |
-| :------------- | :------------------------------------------------- |
-| `name`         | string, min 2 chars                                |
-| `phone`        | string                                             |
-| `district`     | string                                             |
-| `city`         | string                                             |
-| `address`      | string                                             |
-| `latitude`     | number                                             |
-| `longitude`    | number                                             |
-| `isAvailable`  | boolean                                            |
-| `lastDonatedAt`| ISO datetime string or Date                        |
-| `bloodGroup`   | enum `BloodGroup`                                  |
+| Field           | Rules                       |
+| :-------------- | :-------------------------- |
+| `name`          | string, min 2 chars         |
+| `phone`         | string                      |
+| `district`      | string                      |
+| `city`          | string                      |
+| `address`       | string                      |
+| `latitude`      | number                      |
+| `longitude`     | number                      |
+| `isAvailable`   | boolean                     |
+| `lastDonatedAt` | ISO datetime string or Date |
+| `bloodGroup`    | enum `BloodGroup`           |
 
 #### Success Response (`200 OK`)
 
@@ -739,21 +739,21 @@ Select shape for list endpoints (`BLOOD_REQUEST_SELECT`): `id`, `requesterId`,
 
 #### Validation Rules
 
-| Field           | Rules                                                  | Required |
-| :-------------- | :----------------------------------------------------- | :------- |
-| `patientName`   | string, min 2 chars                                    | ✅        |
-| `patientAge`    | integer, 1–120                                         | ✅        |
-| `bloodGroup`    | enum `BloodGroup`                                      | ✅        |
-| `unitsRequired` | integer, min 1 (defaults to `1`)                       | ➖        |
-| `hospitalName`  | non-empty string                                       | ✅        |
-| `hospitalAddress`| non-empty string                                      | ✅        |
-| `district`      | non-empty string                                       | ✅        |
-| `city`          | non-empty string                                       | ✅        |
-| `latitude`      | number                                                 | ➖        |
-| `longitude`     | number                                                 | ➖        |
-| `urgency`       | enum `UrgencyLevel` (defaults to `NORMAL`)             | ➖        |
-| `neededBy`      | ISO datetime string (or Date)                          | ✅        |
-| `notes`         | string                                                 | ➖        |
+| Field             | Rules                                      | Required |
+| :---------------- | :----------------------------------------- | :------- |
+| `patientName`     | string, min 2 chars                        | ✅       |
+| `patientAge`      | integer, 1–120                             | ✅       |
+| `bloodGroup`      | enum `BloodGroup`                          | ✅       |
+| `unitsRequired`   | integer, min 1 (defaults to `1`)           | ➖       |
+| `hospitalName`    | non-empty string                           | ✅       |
+| `hospitalAddress` | non-empty string                           | ✅       |
+| `district`        | non-empty string                           | ✅       |
+| `city`            | non-empty string                           | ✅       |
+| `latitude`        | number                                     | ➖       |
+| `longitude`       | number                                     | ➖       |
+| `urgency`         | enum `UrgencyLevel` (defaults to `NORMAL`) | ➖       |
+| `neededBy`        | ISO datetime string (or Date)              | ✅       |
+| `notes`           | string                                     | ➖       |
 
 #### Success Response (`201 Created`)
 
@@ -796,19 +796,19 @@ Select shape for list endpoints (`BLOOD_REQUEST_SELECT`): `id`, `requesterId`,
 
 #### Query Parameters
 
-| Param         | Type / Rules                                                        | Default     |
-| :------------ | :------------------------------------------------------------------ | :---------- |
-| `page`        | integer ≥ 1                                                         | `1`         |
-| `limit`       | integer 1–100                                                       | `10`        |
-| `sortBy`      | `createdAt` \| `updatedAt` \| `neededBy` \| `patientName` \| `bloodGroup` \| `urgency` | `createdAt` |
-| `sortOrder`   | `asc` \| `desc`                                                     | `desc`      |
-| `bloodGroup`  | enum `BloodGroup` (exact match)                                     | —           |
-| `bloodGroups` | comma-separated list, e.g. `O_NEGATIVE,O_POSITIVE` (compatible-groups query; narrowed by `bloodGroup` when both are sent) | — |
-| `neededFrom`  | ISO datetime — only requests with `neededBy >= neededFrom`          | —           |
-| `district`    | trimmed string (exact match)                                        | —           |
-| `urgency`     | enum `UrgencyLevel`                                                 | —           |
-| `status`      | enum `RequestStatus`                                                | —           |
-| `searchTerm`  | matches `hospitalName`, `patientName`, `city` (insensitive)         | —           |
+| Param         | Type / Rules                                                                                                              | Default     |
+| :------------ | :------------------------------------------------------------------------------------------------------------------------ | :---------- |
+| `page`        | integer ≥ 1                                                                                                               | `1`         |
+| `limit`       | integer 1–100                                                                                                             | `10`        |
+| `sortBy`      | `createdAt` \| `updatedAt` \| `neededBy` \| `patientName` \| `bloodGroup` \| `urgency`                                    | `createdAt` |
+| `sortOrder`   | `asc` \| `desc`                                                                                                           | `desc`      |
+| `bloodGroup`  | enum `BloodGroup` (exact match)                                                                                           | —           |
+| `bloodGroups` | comma-separated list, e.g. `O_NEGATIVE,O_POSITIVE` (compatible-groups query; narrowed by `bloodGroup` when both are sent) | —           |
+| `neededFrom`  | ISO datetime — only requests with `neededBy >= neededFrom`                                                                | —           |
+| `district`    | trimmed string (exact match)                                                                                              | —           |
+| `urgency`     | enum `UrgencyLevel`                                                                                                       | —           |
+| `status`      | enum `RequestStatus`                                                                                                      | —           |
+| `searchTerm`  | matches `hospitalName`, `patientName`, `city` (insensitive)                                                               | —           |
 
 #### Success Response (`200 OK`)
 
@@ -816,7 +816,13 @@ Select shape for list endpoints (`BLOOD_REQUEST_SELECT`): `id`, `requesterId`,
 {
   "success": true,
   "message": "Blood requests retrieved successfully",
-  "meta": { "page": 1, "limit": 10, "total": 1, "totalPages": 1, "totalPage": 1 },
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "total": 1,
+    "totalPages": 1,
+    "totalPage": 1
+  },
   "data": [
     {
       "id": "2436a8f5-f3ce-43f1-9b07-702b0e343338",
@@ -855,7 +861,13 @@ Select shape for list endpoints (`BLOOD_REQUEST_SELECT`): `id`, `requesterId`,
 {
   "success": true,
   "message": "My blood requests retrieved successfully",
-  "meta": { "page": 1, "limit": 10, "total": 5, "totalPages": 1, "totalPage": 1 },
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "total": 5,
+    "totalPages": 1,
+    "totalPage": 1
+  },
   "data": []
 }
 ```
@@ -991,11 +1003,11 @@ Mounted from two routers (`src/app/modules/donorMatch/donorMatch.route.ts`):
 
 #### Query Parameters
 
-| Param        | Type / Rules                          | Required |
-| :----------- | :------------------------------------ | :------- |
-| `bloodGroup` | enum `BloodGroup` (recipient group)   | ✅        |
-| `district`   | trimmed string                        | ➖        |
-| `requestId`  | UUID                                  | ➖        |
+| Param        | Type / Rules                        | Required |
+| :----------- | :---------------------------------- | :------- |
+| `bloodGroup` | enum `BloodGroup` (recipient group) | ✅       |
+| `district`   | trimmed string                      | ➖       |
+| `requestId`  | UUID                                | ➖       |
 
 #### Success Response (`200 OK`)
 
@@ -1082,9 +1094,9 @@ Both fields must be valid UUIDs.
 }
 ```
 
-| Field      | Rules                                            |
-| :--------- | :----------------------------------------------- |
-| `response` | enum: `ACCEPTED` \| `DECLINED` (only these two)  |
+| Field      | Rules                                           |
+| :--------- | :---------------------------------------------- |
+| `response` | enum: `ACCEPTED` \| `DECLINED` (only these two) |
 
 #### Success Response (`200 OK`)
 
@@ -1100,14 +1112,14 @@ Decline message: `"Donation request declined"`.
 
 #### Key Business Errors
 
-| Status | Message                                                                  |
-| :----- | :----------------------------------------------------------------------- |
-| `404`  | `"You have not been assigned to this blood request"`                     |
-| `404`  | `"This blood request is no longer active"`                               |
-| `409`  | ``"This assignment was already <status>"``                               |
-| `400`  | `"This blood request is no longer accepting donors"`                     |
+| Status | Message                                                                     |
+| :----- | :-------------------------------------------------------------------------- |
+| `404`  | `"You have not been assigned to this blood request"`                        |
+| `404`  | `"This blood request is no longer active"`                                  |
+| `409`  | `"This assignment was already <status>"`                                    |
+| `400`  | `"This blood request is no longer accepting donors"`                        |
 | `400`  | `"Blood request is not verified yet. Please try again after verification."` |
-| `409`  | `"Another donor has already accepted this request"`                      |
+| `409`  | `"Another donor has already accepted this request"`                         |
 
 ---
 
@@ -1144,8 +1156,8 @@ Side effects:
 }
 ```
 
-| Field    | Rules                                                                        |
-| :------- | :--------------------------------------------------------------------------- |
+| Field    | Rules                                                                                                                |
+| :------- | :------------------------------------------------------------------------------------------------------------------- |
 | `status` | enum: `VERIFIED` \| `IN_PROGRESS` \| `COMPLETED` \| `CANCELLED` (`PENDING` and `DONOR_ASSIGNED` are rejected by Zod) |
 
 #### Success Response (`200 OK`)
@@ -1175,16 +1187,16 @@ Side effects:
 
 #### Query Parameters
 
-| Param       | Type / Rules                                             | Default      |
-| :---------- | :------------------------------------------------------- | :----------- |
-| `page`      | integer ≥ 1                                              | `1`          |
-| `limit`     | integer 1–100                                            | `6`          |
-| `sortBy`    | `assignedAt` \| `neededBy`                               | `assignedAt` |
-| `sortOrder` | `asc` \| `desc`                                          | `desc`       |
-| `status`    | enum `AssignmentStatus`                                  | —            |
-| `urgency`   | enum `UrgencyLevel` (request-level filter)               | —            |
-| `bloodGroup`| enum `BloodGroup` (request-level filter)                 | —            |
-| `searchTerm`| matches `patientName` / `hospitalName` (insensitive)     | —            |
+| Param        | Type / Rules                                         | Default      |
+| :----------- | :--------------------------------------------------- | :----------- |
+| `page`       | integer ≥ 1                                          | `1`          |
+| `limit`      | integer 1–100                                        | `6`          |
+| `sortBy`     | `assignedAt` \| `neededBy`                           | `assignedAt` |
+| `sortOrder`  | `asc` \| `desc`                                      | `desc`       |
+| `status`     | enum `AssignmentStatus`                              | —            |
+| `urgency`    | enum `UrgencyLevel` (request-level filter)           | —            |
+| `bloodGroup` | enum `BloodGroup` (request-level filter)             | —            |
+| `searchTerm` | matches `patientName` / `hospitalName` (insensitive) | —            |
 
 #### Success Response (`200 OK`)
 
@@ -1192,7 +1204,13 @@ Side effects:
 {
   "success": true,
   "message": "Donation history retrieved successfully",
-  "meta": { "page": 1, "limit": 6, "total": 2, "totalPages": 1, "totalPage": 1 },
+  "meta": {
+    "page": 1,
+    "limit": 6,
+    "total": 2,
+    "totalPages": 1,
+    "totalPage": 1
+  },
   "data": [
     {
       "id": "9b1c4a77-4e61-42a9-8b3c-76f3a2d1c905",
@@ -1258,11 +1276,11 @@ Payment flow:
 }
 ```
 
-| Field         | Rules                                                        |
-| :------------ | :----------------------------------------------------------- |
-| `requestId`   | UUID — existing, non-deleted blood request                   |
-| `paymentType` | enum: `PREMIUM_NOTIFICATION` \| `EMERGENCY_LOGISTICS`        |
-| `amount`      | number, greater than zero                                    |
+| Field         | Rules                                                 |
+| :------------ | :---------------------------------------------------- |
+| `requestId`   | UUID — existing, non-deleted blood request            |
+| `paymentType` | enum: `PREMIUM_NOTIFICATION` \| `EMERGENCY_LOGISTICS` |
+| `amount`      | number, greater than zero                             |
 
 #### Success Response (`201 Created`)
 
@@ -1349,8 +1367,8 @@ Errors: `404 "Payment not found"`, `403 "You are not allowed to access this paym
 }
 ```
 
-| Field    | Rules                 |
-| :------- | :-------------------- |
+| Field    | Rules                      |
+| :------- | :------------------------- |
 | `reason` | non-empty string, required |
 
 #### Success Response (`200 OK`)
@@ -1387,15 +1405,15 @@ Errors: `404 "Completed logistics payment not found for this request"`,
 
 #### Query Parameters
 
-| Param        | Type / Rules                                             | Default     |
-| :----------- | :------------------------------------------------------- | :---------- |
-| `page`       | integer ≥ 1                                              | `1`         |
-| `limit`      | integer 1–100                                            | `10`        |
-| `sortBy`     | `createdAt` \| `amount`                                  | `createdAt` |
-| `sortOrder`  | `asc` \| `desc`                                          | `desc`      |
-| `status`     | enum `PaymentStatus`                                     | —           |
-| `paymentType`| `PREMIUM_NOTIFICATION` \| `EMERGENCY_LOGISTICS`          | —           |
-| `searchTerm` | matches `paymentID`, `trxID`, request `patientName`      | —           |
+| Param         | Type / Rules                                        | Default     |
+| :------------ | :-------------------------------------------------- | :---------- |
+| `page`        | integer ≥ 1                                         | `1`         |
+| `limit`       | integer 1–100                                       | `10`        |
+| `sortBy`      | `createdAt` \| `amount`                             | `createdAt` |
+| `sortOrder`   | `asc` \| `desc`                                     | `desc`      |
+| `status`      | enum `PaymentStatus`                                | —           |
+| `paymentType` | `PREMIUM_NOTIFICATION` \| `EMERGENCY_LOGISTICS`     | —           |
+| `searchTerm`  | matches `paymentID`, `trxID`, request `patientName` | —           |
 
 #### Success Response (`200 OK`)
 
@@ -1403,7 +1421,13 @@ Errors: `404 "Completed logistics payment not found for this request"`,
 {
   "success": true,
   "message": "Payments retrieved successfully",
-  "meta": { "page": 1, "limit": 10, "total": 2, "totalPages": 1, "totalPage": 1 },
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "total": 2,
+    "totalPages": 1,
+    "totalPage": 1
+  },
   "data": [
     {
       "id": "aa081669-774d-41cf-a49e-7d4f3cff1164",
@@ -1495,16 +1519,16 @@ Every endpoint requires the `ADMIN` role.
 
 #### Query Parameters
 
-| Param        | Type / Rules                                             | Default     |
-| :----------- | :------------------------------------------------------- | :---------- |
-| `page`       | integer ≥ 1                                              | `1`         |
-| `limit`      | integer 1–100                                            | `10`        |
-| `sortBy`     | `name` \| `email` \| `role` \| `createdAt`               | `createdAt` |
-| `sortOrder`  | `asc` \| `desc`                                          | `desc`      |
-| `role`       | enum `UserRole`                                          | —           |
-| `bloodGroup` | enum `BloodGroup`                                        | —           |
-| `district`   | trimmed string                                           | —           |
-| `searchTerm` | matches `name` / `email` (insensitive)                   | —           |
+| Param        | Type / Rules                               | Default     |
+| :----------- | :----------------------------------------- | :---------- |
+| `page`       | integer ≥ 1                                | `1`         |
+| `limit`      | integer 1–100                              | `10`        |
+| `sortBy`     | `name` \| `email` \| `role` \| `createdAt` | `createdAt` |
+| `sortOrder`  | `asc` \| `desc`                            | `desc`      |
+| `role`       | enum `UserRole`                            | —           |
+| `bloodGroup` | enum `BloodGroup`                          | —           |
+| `district`   | trimmed string                             | —           |
+| `searchTerm` | matches `name` / `email` (insensitive)     | —           |
 
 #### Success Response (`200 OK`)
 
@@ -1512,7 +1536,13 @@ Every endpoint requires the `ADMIN` role.
 {
   "success": true,
   "message": "Users retrieved successfully",
-  "meta": { "page": 1, "limit": 10, "total": 120, "totalPages": 12, "totalPage": 12 },
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "total": 120,
+    "totalPages": 12,
+    "totalPage": 12
+  },
   "data": [
     {
       "id": "3f0c9d1e-7b2a-4c58-9f31-2a6b5d4e8f90",
@@ -1550,15 +1580,15 @@ Every endpoint requires the `ADMIN` role.
 
 #### Query Parameters
 
-| Param         | Type / Rules                                             | Default     |
-| :------------ | :------------------------------------------------------- | :---------- |
-| `page`        | integer ≥ 1                                              | `1`         |
-| `limit`       | integer 1–100                                            | `10`        |
-| `sortBy`      | `createdAt` \| `amount`                                  | `createdAt` |
-| `sortOrder`   | `asc` \| `desc`                                          | `desc`      |
-| `status`      | enum `PaymentStatus`                                     | —           |
-| `paymentType` | enum `PaymentType` (full enum)                           | —           |
-| `searchTerm`  | matches `paymentID`, `trxID`, payer `email` (insensitive)| —           |
+| Param         | Type / Rules                                              | Default     |
+| :------------ | :-------------------------------------------------------- | :---------- |
+| `page`        | integer ≥ 1                                               | `1`         |
+| `limit`       | integer 1–100                                             | `10`        |
+| `sortBy`      | `createdAt` \| `amount`                                   | `createdAt` |
+| `sortOrder`   | `asc` \| `desc`                                           | `desc`      |
+| `status`      | enum `PaymentStatus`                                      | —           |
+| `paymentType` | enum `PaymentType` (full enum)                            | —           |
+| `searchTerm`  | matches `paymentID`, `trxID`, payer `email` (insensitive) | —           |
 
 #### Success Response (`200 OK`)
 
@@ -1566,7 +1596,13 @@ Every endpoint requires the `ADMIN` role.
 {
   "success": true,
   "message": "Payments retrieved successfully",
-  "meta": { "page": 1, "limit": 10, "total": 42, "totalPages": 5, "totalPage": 5 },
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "total": 42,
+    "totalPages": 5,
+    "totalPage": 5
+  },
   "data": [
     {
       "id": "aa081669-774d-41cf-a49e-7d4f3cff1164",
@@ -1619,11 +1655,11 @@ Every endpoint requires the `ADMIN` role.
 }
 ```
 
-| Field      | Rules                                              |
-| :--------- | :------------------------------------------------- |
-| `role`     | enum `UserRole` (`DONOR` \| `PATIENT` \| `ADMIN`)  |
-| `status`   | enum `UserStatus` (`ACTIVE` \| `BLOCKED` \| `DELETED`) |
-| `isDeleted`| boolean                                            |
+| Field       | Rules                                                  |
+| :---------- | :----------------------------------------------------- |
+| `role`      | enum `UserRole` (`DONOR` \| `PATIENT` \| `ADMIN`)      |
+| `status`    | enum `UserStatus` (`ACTIVE` \| `BLOCKED` \| `DELETED`) |
+| `isDeleted` | boolean                                                |
 
 #### Success Response (`200 OK`)
 
@@ -1644,11 +1680,11 @@ Every endpoint requires the `ADMIN` role.
 
 #### Business Errors
 
-| Status | Message                                                                     |
-| :----- | :-------------------------------------------------------------------------- |
-| `400`  | `"You cannot change your own role or block yourself"`                       |
-| `404`  | `"User not found"`                                                          |
-| `400`  | `"No changes detected. Provide a new role or isDeleted value."`             |
+| Status | Message                                                         |
+| :----- | :-------------------------------------------------------------- |
+| `400`  | `"You cannot change your own role or block yourself"`           |
+| `404`  | `"User not found"`                                              |
+| `400`  | `"No changes detected. Provide a new role or isDeleted value."` |
 
 ---
 
@@ -1698,15 +1734,15 @@ Every endpoint requires the `ADMIN` role.
 
 #### Query Parameters
 
-| Param        | Type / Rules                                             | Default     |
-| :----------- | :------------------------------------------------------- | :---------- |
-| `page`       | integer ≥ 1                                              | `1`         |
-| `limit`      | integer 1–100                                            | `10`        |
-| `sortBy`     | only `createdAt`                                         | `createdAt` |
-| `sortOrder`  | `asc` \| `desc`                                          | `desc`      |
-| `action`     | exact match (e.g. `STATUS_CHANGE`, `PAYMENT_COMPLETED`, `USER_ROLE_UPDATED`, `DONOR_ACCEPTED`, `DONOR_DECLINED`, `PAYMENT_REFUNDED`, `USER_BLOCKED`) | — |
-| `entity`     | exact match (e.g. `User`, `BloodRequest`, `Payment`)     | —           |
-| `actorEmail` | matches actor email (insensitive contains)               | —           |
+| Param        | Type / Rules                                                                                                                                         | Default     |
+| :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- | :---------- |
+| `page`       | integer ≥ 1                                                                                                                                          | `1`         |
+| `limit`      | integer 1–100                                                                                                                                        | `10`        |
+| `sortBy`     | only `createdAt`                                                                                                                                     | `createdAt` |
+| `sortOrder`  | `asc` \| `desc`                                                                                                                                      | `desc`      |
+| `action`     | exact match (e.g. `STATUS_CHANGE`, `PAYMENT_COMPLETED`, `USER_ROLE_UPDATED`, `DONOR_ACCEPTED`, `DONOR_DECLINED`, `PAYMENT_REFUNDED`, `USER_BLOCKED`) | —           |
+| `entity`     | exact match (e.g. `User`, `BloodRequest`, `Payment`)                                                                                                 | —           |
+| `actorEmail` | matches actor email (insensitive contains)                                                                                                           | —           |
 
 #### Success Response (`200 OK`)
 
@@ -1714,7 +1750,13 @@ Every endpoint requires the `ADMIN` role.
 {
   "success": true,
   "message": "Audit logs retrieved successfully",
-  "meta": { "page": 1, "limit": 10, "total": 50, "totalPages": 5, "totalPage": 5 },
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "total": 50,
+    "totalPages": 5,
+    "totalPage": 5
+  },
   "data": [
     {
       "id": "6c2f0c1d-9a44-4f0b-b7f1-0d4a5e2b3c11",
@@ -1787,24 +1829,24 @@ Source of truth: `prisma/schema/enums.prisma`
 
 Frequently returned errors (message is always accompanied by `errors[]`):
 
-| HTTP | Message                                                                   | Where                              |
-| :--- | :------------------------------------------------------------------------ | :--------------------------------- |
-| 400  | `Validation Error` (+ per-field messages)                                 | any Zod `validateRequest`          |
-| 400  | `Invalid or expired OTP` / `OTP does not match`                           | verify-email / reset-password      |
-| 400  | `Cannot change request status from X to Y`                                | status state machine               |
-| 400  | `Cannot assign donor to a request that is not verified`                   | assign-donor                       |
-| 400  | `No changes detected. Provide a new role or isDeleted value.`             | admin role update                  |
-| 401  | `You are not logged in. Please log in to access this resource.`           | missing token                      |
-| 401  | `Invalid email or password`                                               | login                              |
-| 401  | `Refresh token is missing`                                                | refresh-token                      |
-| 403  | `Forbidden. You don't have permission to access this resource.`           | role mismatch                      |
-| 403  | `Your account has been deleted or blocked.`                               | auth middleware (isDeleted)        |
-| 403  | `You are not allowed to update this blood request`                        | blood request update/delete        |
-| 403  | `You are not allowed to pay for this blood request`                       | payment initiate                   |
-| 404  | `API Not Found`                                                           | unknown route                      |
-| 404  | `Blood request not found` / `Payment not found` / `User not found`        | entity lookups                     |
-| 409  | `Another donor has already accepted this request`                         | donor respond                      |
-| 409  | `Email is already verified`                                               | verify-email                       |
-| 429  | `Too many auth/payment attempts from this IP, please try again after 15 minutes.` | auth/payment limiter      |
-| 429  | `Too many requests from this IP, please try again after 15 minutes.`      | global limiter                     |
-| 502  | `bKash payment creation failed: ...` / `bKash refund failed: ...`         | payment gateway                    |
+| HTTP | Message                                                                           | Where                         |
+| :--- | :-------------------------------------------------------------------------------- | :---------------------------- |
+| 400  | `Validation Error` (+ per-field messages)                                         | any Zod `validateRequest`     |
+| 400  | `Invalid or expired OTP` / `OTP does not match`                                   | verify-email / reset-password |
+| 400  | `Cannot change request status from X to Y`                                        | status state machine          |
+| 400  | `Cannot assign donor to a request that is not verified`                           | assign-donor                  |
+| 400  | `No changes detected. Provide a new role or isDeleted value.`                     | admin role update             |
+| 401  | `You are not logged in. Please log in to access this resource.`                   | missing token                 |
+| 401  | `Invalid email or password`                                                       | login                         |
+| 401  | `Refresh token is missing`                                                        | refresh-token                 |
+| 403  | `Forbidden. You don't have permission to access this resource.`                   | role mismatch                 |
+| 403  | `Your account has been deleted or blocked.`                                       | auth middleware (isDeleted)   |
+| 403  | `You are not allowed to update this blood request`                                | blood request update/delete   |
+| 403  | `You are not allowed to pay for this blood request`                               | payment initiate              |
+| 404  | `API Not Found`                                                                   | unknown route                 |
+| 404  | `Blood request not found` / `Payment not found` / `User not found`                | entity lookups                |
+| 409  | `Another donor has already accepted this request`                                 | donor respond                 |
+| 409  | `Email is already verified`                                                       | verify-email                  |
+| 429  | `Too many auth/payment attempts from this IP, please try again after 15 minutes.` | auth/payment limiter          |
+| 429  | `Too many requests from this IP, please try again after 15 minutes.`              | global limiter                |
+| 502  | `bKash payment creation failed: ...` / `bKash refund failed: ...`                 | payment gateway               |
