@@ -47,6 +47,8 @@
 | **Admin**         | `PATCH`  | `/api/v1/admin/users/:id/role`            | ADMIN                 | Change user role / status / soft-delete flag                  |
 | **Admin**         | `GET`    | `/api/v1/admin/dashboard-stats`           | ADMIN                 | Platform aggregate stats & revenue analytics                  |
 | **Admin**         | `GET`    | `/api/v1/admin/audit-logs`                | ADMIN                 | Search audit logs & action trails                             |
+| **Notification**  | `POST`   | `/api/v1/notifications`                   | ADMIN                 | Create a notification targeted at a user                      |
+| **Notification**  | `GET`    | `/api/v1/notifications`                   | DONOR, PATIENT, ADMIN | List & search the caller's own notifications (paginated)      |
 
 ---
 
@@ -61,8 +63,9 @@
 6. [Module 4: Smart Donor Matching & Request Workflow (`/donor-matches` & `/blood-requests`)](#module-4-smart-donor-matching--request-workflow-donor-matches--blood-requests)
 7. [Module 5: bKash Tokenized Payments (`/payments`)](#module-5-bkash-tokenized-payments-payments)
 8. [Module 6: Admin Administration & Audit Analytics (`/admin`)](#module-6-admin-administration--audit-analytics-admin)
-9. [Common System Enums](#common-system-enums)
-10. [Common Error Catalog](#10-common-error-catalog)
+9. [Module 7: In-App Notifications (`/notifications`)](#module-7-in-app-notifications-notifications)
+10. [Common System Enums](#common-system-enums)
+11. [Common Error Catalog](#10-common-error-catalog)
 
 ---
 
@@ -1783,6 +1786,113 @@ Every endpoint requires the `ADMIN` role.
 
 ---
 
+## Module 7: In-App Notifications (`/notifications`)
+
+Persistent, per-user notification records produced either by admin action or (in future) by domain events (donor assignment, request lifecycle, payment lifecycle).
+
+### 7.1 Create Notification
+
+- **Endpoint**: `POST /notifications`
+- **Auth**: Authenticated (`ADMIN` only)
+- **Description**: Creates a notification for the target user. The target user must exist and must not be soft-deleted.
+
+#### Request Body
+
+```json
+{
+  "userId": "5274a612-2625-46e1-b2ec-7e218a5c0825",
+  "type": "GENERAL",
+  "title": "Welcome to Hemacue",
+  "message": "Thanks for joining the platform. Complete your profile to become discoverable.",
+  "relatedEntityType": "BloodRequest",
+  "relatedEntityId": "2436a8f5-f3ce-43f1-9b07-702b0e343338"
+}
+```
+
+| Field               | Rules                                                                |
+| :------------------ | :------------------------------------------------------------------- |
+| `userId`            | UUID — must reference an existing, non-deleted user                  |
+| `type`              | enum `NotificationType`, optional (defaults to `GENERAL`)            |
+| `title`             | string, required, 1–200 chars                                        |
+| `message`           | string, required, 1–2000 chars                                       |
+| `relatedEntityType` | string, optional (e.g. `BloodRequest`, `Payment`, `DonorAssignment`) |
+| `relatedEntityId`   | string, optional                                                     |
+
+#### Success Response (`201 Created`)
+
+```json
+{
+  "success": true,
+  "message": "Notification created successfully",
+  "data": {
+    "id": "a6f3b1c2-84d1-4e22-9c3f-8d1e2a4b5c67",
+    "userId": "5274a612-2625-46e1-b2ec-7e218a5c0825",
+    "type": "GENERAL",
+    "title": "Welcome to Hemacue",
+    "message": "Thanks for joining the platform. Complete your profile to become discoverable.",
+    "isRead": false,
+    "relatedEntityType": "BloodRequest",
+    "relatedEntityId": "2436a8f5-f3ce-43f1-9b07-702b0e343338",
+    "createdAt": "2026-10-06T12:00:00.000Z",
+    "updatedAt": "2026-10-06T12:00:00.000Z"
+  }
+}
+```
+
+Errors: `404 "Target user not found"`, `400 "Cannot create a notification for a deleted user"`.
+
+---
+
+### 7.2 Get My Notifications
+
+- **Endpoint**: `GET /notifications`
+- **Auth**: Authenticated (`DONOR`, `PATIENT`, `ADMIN`)
+- **Description**: Paginated list of the calling user's own notifications, newest first. **Admins do not see other users' notifications here** — this endpoint is strictly scoped to `userId = current user`.
+
+#### Query Parameters
+
+| Param        | Type / Rules                                       | Default     |
+| :----------- | :------------------------------------------------- | :---------- |
+| `page`       | integer ≥ 1                                        | `1`         |
+| `limit`      | integer 1–100                                      | `10`        |
+| `sortBy`     | only `createdAt`                                   | `createdAt` |
+| `sortOrder`  | `asc` \| `desc`                                    | `desc`      |
+| `type`       | enum `NotificationType`                            | —           |
+| `isRead`     | `"true"` \| `"false"`                              | —           |
+| `searchTerm` | matches `title` / `message` (insensitive contains) | —           |
+
+#### Success Response (`200 OK`)
+
+```json
+{
+  "success": true,
+  "message": "Notifications retrieved successfully",
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "total": 1,
+    "totalPages": 1,
+    "totalPage": 1
+  },
+  "data": [
+    {
+      "id": "a6f3b1c2-84d1-4e22-9c3f-8d1e2a4b5c67",
+      "userId": "5274a612-2625-46e1-b2ec-7e218a5c0825",
+      "type": "GENERAL",
+      "title": "Welcome to Hemacue",
+      "message": "Thanks for joining the platform. Complete your profile to become discoverable.",
+      "isRead": false,
+      "relatedEntityType": "BloodRequest",
+      "relatedEntityId": "2436a8f5-f3ce-43f1-9b07-702b0e343338",
+      "createdAt": "2026-10-06T12:00:00.000Z",
+      "updatedAt": "2026-10-06T12:00:00.000Z"
+    }
+  ]
+}
+```
+
+---
+
 ## Common System Enums
 
 Source of truth: `prisma/schema/enums.prisma`
@@ -1822,6 +1932,10 @@ Source of truth: `prisma/schema/enums.prisma`
 ### PaymentType
 
 `PREMIUM_NOTIFICATION`, `EMERGENCY_LOGISTICS`
+
+### NotificationType
+
+`DONOR_ASSIGNED`, `REQUEST_ACCEPTED`, `REQUEST_DECLINED`, `REQUEST_VERIFIED`, `REQUEST_COMPLETED`, `REQUEST_CANCELLED`, `PAYMENT_COMPLETED`, `PAYMENT_REFUNDED`, `GENERAL`
 
 ---
 

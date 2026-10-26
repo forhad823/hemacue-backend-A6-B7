@@ -210,6 +210,12 @@ erDiagram
 - **Analytics Dashboard**: Aggregates live stats on user counts by role, active blood requests by status, total successful donations, and total bKash revenue generated.
 - **Audit Logs**: Provides searchable audit trails tracking platform updates, administrative actions, and payment changes.
 
+### 🔔 In-App Notifications
+
+- **Admin-Managed Fan-Out**: Admins can create a targeted notification for any active user.
+- **User Inbox**: Each authenticated user can list their own notifications with filters (`type`, `isRead`, `searchTerm`) and standard pagination.
+- **Domain Events Ready**: The `NotificationType` enum covers donor assignment, request lifecycle, and payment lifecycle events — so future automations can persist notifications without schema changes.
+
 ---
 
 ## 🛠️ Tech Stack & Dependencies
@@ -243,7 +249,8 @@ src/
 │   │   ├── bloodRequest/         # Blood request CRUD, filtering & pagination
 │   │   ├── donorMatch/           # Smart compatibility donor matching & status workflow state machine
 │   │   ├── payment/              # bKash Tokenized Checkout integration & refunds
-│   │   └── user/                 # User profile management & avatar uploads
+│   │   ├── user/                 # User profile management & avatar uploads
+│   │   └── notification/         # In-app notifications (create by admin, list by owner)
 │   ├── routes/                   # Central application API router (/api/v1)
 │   ├── templates/                # EJS HTML email templates (verification, welcome, invoice, reset)
 │   ├── types/                    # TypeScript ambient definitions & Express type extensions

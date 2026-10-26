@@ -1,28 +1,28 @@
 model Payment {
-    id             String        @id @default(uuid())
-    userId         String
-    requestId      String
-    paymentGateway String        @default("bkash")
-    paymentID      String        @unique
-    trxID          String?       @unique
-    amount         Float
-    currency       String        @default("BDT")
-    status         PaymentStatus @default(INITIALIZED)
-    paymentType    PaymentType
-    payerReference String? // user email / phone number
-    paidAt         String?
+  id             String        @id @default(uuid())
+  userId         String
+  requestId      String
+  paymentGateway String        @default("bkash")
+  paymentID      String        @unique
+  trxID          String?       @unique
+  amount         Float
+  currency       String        @default("BDT")
+  status         PaymentStatus @default(INITIALIZED)
+  paymentType    PaymentType
+  payerReference String? // user email / phone number
+  paidAt         String?
 
-    gatewayResponse Json?
+  gatewayResponse Json?
 
-    refundTrxId  String?
-    refundAmount Decimal? @db.Decimal(10, 2)
-    refundReason String?
-    refundedAt   String?
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
+  refundTrxId  String?
+  refundAmount Decimal? @db.Decimal(10, 2)
+  refundReason String?
+  refundedAt   String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-    user    User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-    request BloodRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  user    User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  request BloodRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
 
-    @@map("payments")
+  @@map("payments")
 }

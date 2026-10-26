@@ -7,6 +7,7 @@ import {
 	DonorMatchRequestRoutes,
 	DonorMatchRoutes,
 } from "../modules/donorMatch/donorMatch.route";
+import { NotificationRoutes } from "../modules/notification/notification.route";
 import { PaymentRoutes } from "../modules/payment/payment.route";
 import { UserRoutes } from "../modules/user/user.route";
 
@@ -41,6 +42,10 @@ const moduleRoutes = [
 	{
 		path: "/admin",
 		route: AdminRoutes,
+	},
+	{
+		path: "/notifications",
+		route: NotificationRoutes,
 	},
 ];
 
