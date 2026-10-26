@@ -26,6 +26,7 @@ Hemacue bridges the gap between emergency blood seekers (patients/hospitals) and
   - [🧬 Smart Donor Matching & Workflow](#-smart-donor-matching--workflow)
   - [💳 bKash Payment Integration & PDF Invoicing](#-bkash-payment-integration--pdf-invoicing)
   - [🛡️ Admin Hub, Audit Logging & Analytics](#-admin-hub-audit-logging--analytics)
+  - [🔔 In-App Notifications](#-in-app-notifications)
 - [🛠️ Tech Stack & Dependencies](#%EF%B8%8F-tech-stack--dependencies)
 - [📁 Project Folder Structure](#-project-folder-structure)
 - [🚀 Getting Started](#-getting-started)
